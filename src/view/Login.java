@@ -4,17 +4,83 @@
  */
 package view;
 
+import config.KoneksiDB;
+import dao.dao_User;
+import java.awt.Color;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import main.MenuUtama;
+import model.model_User;
+import static view.formLogin.userLogin;
+
 /**
  *
  * @author ryumaaa
  */
 public class Login extends javax.swing.JFrame {
 
+    int x, y;
+    private Connection conn;
+    private Statement st;
+    private ResultSet rslogin;
+    private String sql = "";
+    public static String nmlengkap;
+    String username, password;
+
+    /**
+     * Creates new form formLogin
+     */
+
+    public static String getNamaLengkap() {
+        return nmlengkap;
+    }
+
+    public void setColor(JPanel p) {
+        p.setBackground(new Color(204,0,51));
+    }
+
+    public void resetColor(JPanel p1) {
+        p1.setBackground(new Color(255, 178, 0));
+    }
+
     /**
      * Creates new form Login
      */
     public Login() {
         initComponents();
+        lbl_hideeye.setVisible(false);
+        lbl_login.requestFocus();
+    }
+    
+     private void prosesLogin() {
+        if (tUsername.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Username tidak boleh kosong");
+        } else if (jPassword.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Password tidak boleh kosong");
+        } else {
+            String username = tUsername.getText().trim();
+            String password = jPassword.getText().trim();
+
+            dao_User dao = new dao_User(KoneksiDB.getConnection());
+            model_User user = dao.login(username, password);
+
+            if (user != null) {
+                userLogin = user; // simpan user login ke variabel static
+                JOptionPane.showMessageDialog(this, "Login Berhasil, Selamat datang " + user.getnmLengkap());
+                new MenuUtama().setVisible(true);
+                dispose();
+            } else {
+                JOptionPane.showMessageDialog(this, "Username atau Password salah!");
+            }
+        }
+    }
+    
+    private void resetForm() {
+        tUsername.setText("Username");
+        jPassword.setText("********");
     }
 
     /**
@@ -26,21 +92,233 @@ public class Login extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        pn_Utama = new javax.swing.JPanel();
+        lbl_eye = new javax.swing.JLabel();
+        lbl_hideeye = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        tUsername = new javax.swing.JTextField();
+        pn_login = new javax.swing.JPanel();
+        lbl_login = new javax.swing.JLabel();
+        lblClose = new javax.swing.JLabel();
+        jPassword = new javax.swing.JPasswordField();
+        pn_cancel = new javax.swing.JPanel();
+        lbl_cancel = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
+
+        pn_Utama.setBackground(new java.awt.Color(255, 255, 255));
+        pn_Utama.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lbl_eye.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbl_eye.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icons8_eye_20px_1.png"))); // NOI18N
+        lbl_eye.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lbl_eyeMousePressed(evt);
+            }
+        });
+        pn_Utama.add(lbl_eye, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 330, 20, 20));
+
+        lbl_hideeye.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbl_hideeye.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icons8_hide_20px_1.png"))); // NOI18N
+        lbl_hideeye.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lbl_hideeyeMousePressed(evt);
+            }
+        });
+        pn_Utama.add(lbl_hideeye, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 330, 20, 20));
+
+        jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("LOGIN ");
+        pn_Utama.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 240, 340, -1));
+
+        tUsername.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
+        tUsername.setText("Username");
+        tUsername.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                tUsernameFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tUsernameFocusLost(evt);
+            }
+        });
+        pn_Utama.add(tUsername, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 270, 370, 40));
+
+        pn_login.setBackground(new java.awt.Color(204, 0, 51));
+
+        lbl_login.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        lbl_login.setForeground(new java.awt.Color(255, 255, 255));
+        lbl_login.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbl_login.setText("Login");
+        lbl_login.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lbl_loginMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lbl_loginMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lbl_loginMouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pn_loginLayout = new javax.swing.GroupLayout(pn_login);
+        pn_login.setLayout(pn_loginLayout);
+        pn_loginLayout.setHorizontalGroup(
+            pn_loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(lbl_login, javax.swing.GroupLayout.DEFAULT_SIZE, 370, Short.MAX_VALUE)
+        );
+        pn_loginLayout.setVerticalGroup(
+            pn_loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(lbl_login, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
+        );
+
+        pn_Utama.add(pn_login, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 370, 370, -1));
+
+        lblClose.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icons8_close_window_50px.png"))); // NOI18N
+        lblClose.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblCloseMousePressed(evt);
+            }
+        });
+        pn_Utama.add(lblClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 0, -1, -1));
+
+        jPassword.setText("********");
+        jPassword.setPreferredSize(new java.awt.Dimension(54, 20));
+        jPassword.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jPasswordFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jPasswordFocusLost(evt);
+            }
+        });
+        pn_Utama.add(jPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 320, 370, 40));
+
+        pn_cancel.setBackground(new java.awt.Color(204, 0, 0));
+
+        lbl_cancel.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        lbl_cancel.setForeground(new java.awt.Color(255, 255, 255));
+        lbl_cancel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbl_cancel.setText("Cancel");
+        lbl_cancel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lbl_cancelMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lbl_cancelMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lbl_cancelMouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pn_cancelLayout = new javax.swing.GroupLayout(pn_cancel);
+        pn_cancel.setLayout(pn_cancelLayout);
+        pn_cancelLayout.setHorizontalGroup(
+            pn_cancelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(lbl_cancel, javax.swing.GroupLayout.DEFAULT_SIZE, 370, Short.MAX_VALUE)
+        );
+        pn_cancelLayout.setVerticalGroup(
+            pn_cancelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(lbl_cancel, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
+        );
+
+        pn_Utama.add(pn_cancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 410, 370, -1));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/logo.jpeg"))); // NOI18N
+        pn_Utama.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 90, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(pn_Utama, javax.swing.GroupLayout.DEFAULT_SIZE, 516, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(pn_Utama, javax.swing.GroupLayout.PREFERRED_SIZE, 523, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void lbl_eyeMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_eyeMousePressed
+        lbl_eye.setVisible(false);
+        lbl_hideeye.setVisible(true);
+        jPassword.setEchoChar((char) 0);
+    }//GEN-LAST:event_lbl_eyeMousePressed
+
+    private void lbl_hideeyeMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_hideeyeMousePressed
+        lbl_eye.setVisible(true);
+        lbl_hideeye.setVisible(false);
+        jPassword.setEchoChar('*');
+    }//GEN-LAST:event_lbl_hideeyeMousePressed
+
+    private void tUsernameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tUsernameFocusGained
+        String username = tUsername.getText();
+        if (username.equals("Username")) {
+            tUsername.setText("");
+        }
+    }//GEN-LAST:event_tUsernameFocusGained
+
+    private void tUsernameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tUsernameFocusLost
+        String username = tUsername.getText();
+        if (username.equals("") || username.equals("Username")) {
+            tUsername.setText("Username");
+        }
+    }//GEN-LAST:event_tUsernameFocusLost
+
+    private void lbl_loginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_loginMouseClicked
+        prosesLogin();
+    }//GEN-LAST:event_lbl_loginMouseClicked
+
+    private void lbl_loginMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_loginMouseEntered
+        setColor(pn_login);
+    }//GEN-LAST:event_lbl_loginMouseEntered
+
+    private void lbl_loginMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_loginMouseExited
+        resetColor(pn_login);
+    }//GEN-LAST:event_lbl_loginMouseExited
+
+    private void lblCloseMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCloseMousePressed
+        int close = JOptionPane.showConfirmDialog(null, "Apakah ingin keluar dari aplikasi?", "pesan", JOptionPane.YES_NO_OPTION);
+        if (close == 0) {
+            this.dispose();
+        }
+    }//GEN-LAST:event_lblCloseMousePressed
+
+    private void jPasswordFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jPasswordFocusGained
+        String password = jPassword.getText();
+        if (password.equals("********")) {
+            jPassword.setText("");
+        }
+    }//GEN-LAST:event_jPasswordFocusGained
+
+    private void jPasswordFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jPasswordFocusLost
+        String password = jPassword.getText();
+        if (password.equals("") || password.equals("********")) {
+            jPassword.setText("********");
+        }
+    }//GEN-LAST:event_jPasswordFocusLost
+
+    private void lbl_cancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_cancelMouseClicked
+        resetForm();
+    }//GEN-LAST:event_lbl_cancelMouseClicked
+
+    private void lbl_cancelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_cancelMouseEntered
+        setColor(pn_cancel);
+    }//GEN-LAST:event_lbl_cancelMouseEntered
+
+    private void lbl_cancelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_cancelMouseExited
+        resetColor(pn_cancel);
+    }//GEN-LAST:event_lbl_cancelMouseExited
 
     /**
      * @param args the command line arguments
@@ -68,6 +346,9 @@ public class Login extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -78,5 +359,17 @@ public class Login extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JPasswordField jPassword;
+    private javax.swing.JLabel lblClose;
+    private javax.swing.JLabel lbl_cancel;
+    private javax.swing.JLabel lbl_eye;
+    private javax.swing.JLabel lbl_hideeye;
+    private javax.swing.JLabel lbl_login;
+    private javax.swing.JPanel pn_Utama;
+    private javax.swing.JPanel pn_cancel;
+    private javax.swing.JPanel pn_login;
+    private javax.swing.JTextField tUsername;
     // End of variables declaration//GEN-END:variables
 }
