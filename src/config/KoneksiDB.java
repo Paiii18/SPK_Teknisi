@@ -11,9 +11,9 @@ import java.sql.SQLException;
  *
  * @author USER
  */
-public class Connection {
+public class KoneksiDB {
 
-    private static final String DB_URL = "jdbc:mysql://localhost:3306/spk_ahp_parfume";
+    private static final String DB_URL = "jdbc:mysql://localhost:3306/db_ahp_teknisi";
     private static final String DB_USER = "root";
     private static final String DB_PASSWORD = "";
 
