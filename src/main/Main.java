@@ -13,7 +13,6 @@ import java.util.Locale;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
-import view.Alternatif;
 import view.Dashboard;
 import view.HasilPerangkingan;
 import view.Kriteria;
