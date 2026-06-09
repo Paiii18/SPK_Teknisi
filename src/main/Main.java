@@ -10,8 +10,18 @@ import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
+import view.Dashboard;
+import view.HasilPerangkingan;
+import view.Kriteria;
+import view.Login;
+import view.NilaiAlternatif;
+import view.PerbandinganKriteria;
+import view.Report;
+import view.Teknisi;
+import view.User;
 
 /**
  *
@@ -22,10 +32,15 @@ public class Main extends javax.swing.JFrame {
     int x, y;
 
     /**
-     * Creates new form Mainn
+     * Creates new form Main
      */
     public Main() {
         initComponents();
+        getTanggal();
+        setJam();
+//        if (Login.userLogin != null) {
+//            lpengguna.setText(Login.userLogin.getnmLengkap());
+//        }
     }
 
     private String getTanggal() {
@@ -72,7 +87,7 @@ public class Main extends javax.swing.JFrame {
     }
 
     public void resetColor(JPanel p1) {
-        p1.setBackground(new Color(255, 178, 0));
+        p1.setBackground(new Color(51, 0, 0));
     }
 
     /**
@@ -89,23 +104,23 @@ public class Main extends javax.swing.JFrame {
         ltanggal = new javax.swing.JLabel();
         ljam = new javax.swing.JLabel();
         pbalternatif = new javax.swing.JPanel();
-        lalternatif = new javax.swing.JLabel();
+        palternatif = new javax.swing.JLabel();
         pbkriteria = new javax.swing.JPanel();
-        lkriteria = new javax.swing.JLabel();
+        pkriteria = new javax.swing.JLabel();
         pbnilaiKriteria = new javax.swing.JPanel();
-        lnilaiKriteria = new javax.swing.JLabel();
+        pnilaiKriteria = new javax.swing.JLabel();
         pbnilaiAlternatif = new javax.swing.JPanel();
-        lnilaiAlternatif = new javax.swing.JLabel();
+        pnilaiAlternatif = new javax.swing.JLabel();
         pbuser = new javax.swing.JPanel();
-        lusers = new javax.swing.JLabel();
+        pusers = new javax.swing.JLabel();
         pblogout = new javax.swing.JPanel();
-        llogout = new javax.swing.JLabel();
+        plogout = new javax.swing.JLabel();
         pbdashboard = new javax.swing.JPanel();
-        ldashboard = new javax.swing.JLabel();
+        pdashboard = new javax.swing.JLabel();
         pbhasilAkhir = new javax.swing.JPanel();
-        lhasilAkhir = new javax.swing.JLabel();
+        phasilAkhir = new javax.swing.JLabel();
         pbReport = new javax.swing.JPanel();
-        lReport = new javax.swing.JLabel();
+        pReport = new javax.swing.JLabel();
         pn_header = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         pn_content = new javax.swing.JPanel();
@@ -151,19 +166,19 @@ public class Main extends javax.swing.JFrame {
         pbalternatif.setBackground(new java.awt.Color(51, 0, 0));
         pbalternatif.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        lalternatif.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        lalternatif.setForeground(new java.awt.Color(255, 255, 255));
-        lalternatif.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/icons8-spray-25.png"))); // NOI18N
-        lalternatif.setText("Data Alternatif");
-        lalternatif.addMouseListener(new java.awt.event.MouseAdapter() {
+        palternatif.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        palternatif.setForeground(new java.awt.Color(255, 255, 255));
+        palternatif.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/icons8-spray-25.png"))); // NOI18N
+        palternatif.setText("Data Alternatif");
+        palternatif.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lalternatifMouseClicked(evt);
+                palternatifMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                lalternatifMouseEntered(evt);
+                palternatifMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                lalternatifMouseExited(evt);
+                palternatifMouseExited(evt);
             }
         });
 
@@ -173,29 +188,29 @@ public class Main extends javax.swing.JFrame {
             pbalternatifLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pbalternatifLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lalternatif, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(palternatif, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pbalternatifLayout.setVerticalGroup(
             pbalternatifLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lalternatif, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
+            .addComponent(palternatif, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
         );
 
         pbkriteria.setBackground(new java.awt.Color(51, 0, 0));
         pbkriteria.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        lkriteria.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        lkriteria.setForeground(new java.awt.Color(255, 255, 255));
-        lkriteria.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/icons8-to-do-list-25.png"))); // NOI18N
-        lkriteria.setText("Data Kriteria");
-        lkriteria.addMouseListener(new java.awt.event.MouseAdapter() {
+        pkriteria.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        pkriteria.setForeground(new java.awt.Color(255, 255, 255));
+        pkriteria.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/icons8-to-do-list-25.png"))); // NOI18N
+        pkriteria.setText("Data Kriteria");
+        pkriteria.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lkriteriaMouseClicked(evt);
+                pkriteriaMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                lkriteriaMouseEntered(evt);
+                pkriteriaMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                lkriteriaMouseExited(evt);
+                pkriteriaMouseExited(evt);
             }
         });
 
@@ -205,29 +220,29 @@ public class Main extends javax.swing.JFrame {
             pbkriteriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pbkriteriaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lkriteria, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(pkriteria, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pbkriteriaLayout.setVerticalGroup(
             pbkriteriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lkriteria, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
+            .addComponent(pkriteria, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
         );
 
         pbnilaiKriteria.setBackground(new java.awt.Color(51, 0, 0));
         pbnilaiKriteria.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        lnilaiKriteria.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        lnilaiKriteria.setForeground(new java.awt.Color(255, 255, 255));
-        lnilaiKriteria.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/icons8-scorecard-25.png"))); // NOI18N
-        lnilaiKriteria.setText("Perbandingan Kriteria");
-        lnilaiKriteria.addMouseListener(new java.awt.event.MouseAdapter() {
+        pnilaiKriteria.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        pnilaiKriteria.setForeground(new java.awt.Color(255, 255, 255));
+        pnilaiKriteria.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/icons8-scorecard-25.png"))); // NOI18N
+        pnilaiKriteria.setText("Perbandingan Kriteria");
+        pnilaiKriteria.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lnilaiKriteriaMouseClicked(evt);
+                pnilaiKriteriaMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                lnilaiKriteriaMouseEntered(evt);
+                pnilaiKriteriaMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                lnilaiKriteriaMouseExited(evt);
+                pnilaiKriteriaMouseExited(evt);
             }
         });
 
@@ -237,29 +252,29 @@ public class Main extends javax.swing.JFrame {
             pbnilaiKriteriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pbnilaiKriteriaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lnilaiKriteria, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(pnilaiKriteria, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pbnilaiKriteriaLayout.setVerticalGroup(
             pbnilaiKriteriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lnilaiKriteria, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+            .addComponent(pnilaiKriteria, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
         );
 
         pbnilaiAlternatif.setBackground(new java.awt.Color(51, 0, 0));
         pbnilaiAlternatif.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        lnilaiAlternatif.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        lnilaiAlternatif.setForeground(new java.awt.Color(255, 255, 255));
-        lnilaiAlternatif.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/icons8-resume-25.png"))); // NOI18N
-        lnilaiAlternatif.setText("Perbandingan Alternatif");
-        lnilaiAlternatif.addMouseListener(new java.awt.event.MouseAdapter() {
+        pnilaiAlternatif.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        pnilaiAlternatif.setForeground(new java.awt.Color(255, 255, 255));
+        pnilaiAlternatif.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/icons8-resume-25.png"))); // NOI18N
+        pnilaiAlternatif.setText("Perbandingan Alternatif");
+        pnilaiAlternatif.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lnilaiAlternatifMouseClicked(evt);
+                pnilaiAlternatifMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                lnilaiAlternatifMouseEntered(evt);
+                pnilaiAlternatifMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                lnilaiAlternatifMouseExited(evt);
+                pnilaiAlternatifMouseExited(evt);
             }
         });
 
@@ -269,29 +284,29 @@ public class Main extends javax.swing.JFrame {
             pbnilaiAlternatifLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pbnilaiAlternatifLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lnilaiAlternatif, javax.swing.GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE))
+                .addComponent(pnilaiAlternatif, javax.swing.GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE))
         );
         pbnilaiAlternatifLayout.setVerticalGroup(
             pbnilaiAlternatifLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lnilaiAlternatif, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+            .addComponent(pnilaiAlternatif, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
         );
 
         pbuser.setBackground(new java.awt.Color(51, 0, 0));
         pbuser.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        lusers.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        lusers.setForeground(new java.awt.Color(255, 255, 255));
-        lusers.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/icons8-system-administrator-male-25.png"))); // NOI18N
-        lusers.setText("Data User");
-        lusers.addMouseListener(new java.awt.event.MouseAdapter() {
+        pusers.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        pusers.setForeground(new java.awt.Color(255, 255, 255));
+        pusers.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/icons8-system-administrator-male-25.png"))); // NOI18N
+        pusers.setText("Data User");
+        pusers.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lusersMouseClicked(evt);
+                pusersMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                lusersMouseEntered(evt);
+                pusersMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                lusersMouseExited(evt);
+                pusersMouseExited(evt);
             }
         });
 
@@ -301,29 +316,29 @@ public class Main extends javax.swing.JFrame {
             pbuserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pbuserLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lusers, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(pusers, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pbuserLayout.setVerticalGroup(
             pbuserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lusers, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+            .addComponent(pusers, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
         );
 
         pblogout.setBackground(new java.awt.Color(51, 0, 0));
         pblogout.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        llogout.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        llogout.setForeground(new java.awt.Color(255, 255, 255));
-        llogout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/icons8-shutdown-25.png"))); // NOI18N
-        llogout.setText("Logout");
-        llogout.addMouseListener(new java.awt.event.MouseAdapter() {
+        plogout.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        plogout.setForeground(new java.awt.Color(255, 255, 255));
+        plogout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/icons8-shutdown-25.png"))); // NOI18N
+        plogout.setText("Logout");
+        plogout.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                llogoutMouseClicked(evt);
+                plogoutMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                llogoutMouseEntered(evt);
+                plogoutMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                llogoutMouseExited(evt);
+                plogoutMouseExited(evt);
             }
         });
 
@@ -333,30 +348,30 @@ public class Main extends javax.swing.JFrame {
             pblogoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pblogoutLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(llogout, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(plogout, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pblogoutLayout.setVerticalGroup(
             pblogoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(llogout, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+            .addComponent(plogout, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
         );
 
         pbdashboard.setBackground(new java.awt.Color(51, 0, 0));
         pbdashboard.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        ldashboard.setBackground(new java.awt.Color(255, 255, 255));
-        ldashboard.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        ldashboard.setForeground(new java.awt.Color(255, 255, 255));
-        ldashboard.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/icons8-dashboard-25.png"))); // NOI18N
-        ldashboard.setText("Dashboard");
-        ldashboard.addMouseListener(new java.awt.event.MouseAdapter() {
+        pdashboard.setBackground(new java.awt.Color(255, 255, 255));
+        pdashboard.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        pdashboard.setForeground(new java.awt.Color(255, 255, 255));
+        pdashboard.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/icons8-dashboard-25.png"))); // NOI18N
+        pdashboard.setText("Dashboard");
+        pdashboard.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ldashboardMouseClicked(evt);
+                pdashboardMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                ldashboardMouseEntered(evt);
+                pdashboardMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                ldashboardMouseExited(evt);
+                pdashboardMouseExited(evt);
             }
         });
 
@@ -366,29 +381,29 @@ public class Main extends javax.swing.JFrame {
             pbdashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pbdashboardLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(ldashboard, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(pdashboard, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pbdashboardLayout.setVerticalGroup(
             pbdashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(ldashboard, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
+            .addComponent(pdashboard, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
         );
 
         pbhasilAkhir.setBackground(new java.awt.Color(51, 0, 0));
         pbhasilAkhir.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        lhasilAkhir.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        lhasilAkhir.setForeground(new java.awt.Color(255, 255, 255));
-        lhasilAkhir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/icons8-plus-minus-25.png"))); // NOI18N
-        lhasilAkhir.setText("Hasil Akhir");
-        lhasilAkhir.addMouseListener(new java.awt.event.MouseAdapter() {
+        phasilAkhir.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        phasilAkhir.setForeground(new java.awt.Color(255, 255, 255));
+        phasilAkhir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/icons8-plus-minus-25.png"))); // NOI18N
+        phasilAkhir.setText("Hasil Akhir");
+        phasilAkhir.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lhasilAkhirMouseClicked(evt);
+                phasilAkhirMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                lhasilAkhirMouseEntered(evt);
+                phasilAkhirMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                lhasilAkhirMouseExited(evt);
+                phasilAkhirMouseExited(evt);
             }
         });
 
@@ -398,29 +413,29 @@ public class Main extends javax.swing.JFrame {
             pbhasilAkhirLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pbhasilAkhirLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lhasilAkhir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(phasilAkhir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pbhasilAkhirLayout.setVerticalGroup(
             pbhasilAkhirLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lhasilAkhir, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+            .addComponent(phasilAkhir, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
         );
 
         pbReport.setBackground(new java.awt.Color(51, 0, 0));
         pbReport.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        lReport.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        lReport.setForeground(new java.awt.Color(255, 255, 255));
-        lReport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/icons8-pdf-25.png"))); // NOI18N
-        lReport.setText("Laporan");
-        lReport.addMouseListener(new java.awt.event.MouseAdapter() {
+        pReport.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        pReport.setForeground(new java.awt.Color(255, 255, 255));
+        pReport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/icons8-pdf-25.png"))); // NOI18N
+        pReport.setText("Laporan");
+        pReport.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lReportMouseClicked(evt);
+                pReportMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                lReportMouseEntered(evt);
+                pReportMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                lReportMouseExited(evt);
+                pReportMouseExited(evt);
             }
         });
 
@@ -430,11 +445,11 @@ public class Main extends javax.swing.JFrame {
             pbReportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pbReportLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lReport, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(pReport, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pbReportLayout.setVerticalGroup(
             pbReportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lReport, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+            .addComponent(pReport, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout pn_sidebarLayout = new javax.swing.GroupLayout(pn_sidebar);
@@ -453,11 +468,8 @@ public class Main extends javax.swing.JFrame {
                 .addGap(19, 19, 19)
                 .addGroup(pn_sidebarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lpengguna, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(pn_sidebarLayout.createSequentialGroup()
-                        .addGroup(pn_sidebarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(ltanggal)
-                            .addComponent(ljam))
-                        .addGap(0, 0, 0)))
+                    .addComponent(ltanggal)
+                    .addComponent(ljam))
                 .addContainerGap())
             .addComponent(pbReport, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -505,7 +517,7 @@ public class Main extends javax.swing.JFrame {
             pn_headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pn_headerLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 882, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         pn_headerLayout.setVerticalGroup(
@@ -525,16 +537,13 @@ public class Main extends javax.swing.JFrame {
         pn_content.setLayout(pn_contentLayout);
         pn_contentLayout.setHorizontalGroup(
             pn_contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pn_contentLayout.createSequentialGroup()
-                .addComponent(pn_dasar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addGroup(pn_contentLayout.createSequentialGroup()
+                .addComponent(pn_dasar, javax.swing.GroupLayout.PREFERRED_SIZE, 876, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         pn_contentLayout.setVerticalGroup(
             pn_contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pn_contentLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(pn_dasar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(pn_dasar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -561,117 +570,146 @@ public class Main extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void lalternatifMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lalternatifMouseClicked
+    private void palternatifMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_palternatifMouseClicked
+        pn_dasar.removeAll();   
+        pn_dasar.add(new Teknisi());
+        pn_dasar.repaint();
+        pn_dasar.revalidate();
+    }//GEN-LAST:event_palternatifMouseClicked
 
-    }//GEN-LAST:event_lalternatifMouseClicked
+    private void palternatifMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_palternatifMouseEntered
+        setColor(pbalternatif);
+    }//GEN-LAST:event_palternatifMouseEntered
 
-    private void lalternatifMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lalternatifMouseEntered
+    private void palternatifMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_palternatifMouseExited
+        resetColor(pbalternatif);
+    }//GEN-LAST:event_palternatifMouseExited
 
-    }//GEN-LAST:event_lalternatifMouseEntered
+    private void pkriteriaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pkriteriaMouseClicked
+        pn_dasar.removeAll();   
+        pn_dasar.add(new Kriteria());
+        pn_dasar.repaint();
+        pn_dasar.revalidate();
+    }//GEN-LAST:event_pkriteriaMouseClicked
 
-    private void lalternatifMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lalternatifMouseExited
+    private void pkriteriaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pkriteriaMouseEntered
+        setColor(pbkriteria);
+    }//GEN-LAST:event_pkriteriaMouseEntered
 
-    }//GEN-LAST:event_lalternatifMouseExited
+    private void pkriteriaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pkriteriaMouseExited
+        resetColor(pbkriteria);
+    }//GEN-LAST:event_pkriteriaMouseExited
 
-    private void lkriteriaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lkriteriaMouseClicked
+    private void pnilaiKriteriaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnilaiKriteriaMouseClicked
+        pn_dasar.removeAll();   
+        pn_dasar.add(new PerbandinganKriteria());
+        pn_dasar.repaint();
+        pn_dasar.revalidate();
+    }//GEN-LAST:event_pnilaiKriteriaMouseClicked
 
-    }//GEN-LAST:event_lkriteriaMouseClicked
+    private void pnilaiKriteriaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnilaiKriteriaMouseEntered
+        setColor(pbnilaiKriteria);
+    }//GEN-LAST:event_pnilaiKriteriaMouseEntered
 
-    private void lkriteriaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lkriteriaMouseEntered
+    private void pnilaiKriteriaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnilaiKriteriaMouseExited
+        resetColor(pbnilaiKriteria);
+    }//GEN-LAST:event_pnilaiKriteriaMouseExited
 
-    }//GEN-LAST:event_lkriteriaMouseEntered
+    private void pnilaiAlternatifMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnilaiAlternatifMouseClicked
+        pn_dasar.removeAll();   
+        pn_dasar.add(new NilaiAlternatif());
+        pn_dasar.repaint();
+        pn_dasar.revalidate();
+    }//GEN-LAST:event_pnilaiAlternatifMouseClicked
 
-    private void lkriteriaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lkriteriaMouseExited
+    private void pnilaiAlternatifMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnilaiAlternatifMouseEntered
+        setColor(pbnilaiAlternatif);
+    }//GEN-LAST:event_pnilaiAlternatifMouseEntered
 
-    }//GEN-LAST:event_lkriteriaMouseExited
+    private void pnilaiAlternatifMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnilaiAlternatifMouseExited
+        resetColor(pbnilaiAlternatif);
+    }//GEN-LAST:event_pnilaiAlternatifMouseExited
 
-    private void lnilaiKriteriaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lnilaiKriteriaMouseClicked
+    private void pusersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pusersMouseClicked
+        pn_dasar.removeAll();   
+        pn_dasar.add(new User());
+        pn_dasar.repaint();
+        pn_dasar.revalidate();
+    }//GEN-LAST:event_pusersMouseClicked
 
-    }//GEN-LAST:event_lnilaiKriteriaMouseClicked
+    private void pusersMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pusersMouseEntered
+        setColor(pbuser);
+    }//GEN-LAST:event_pusersMouseEntered
 
-    private void lnilaiKriteriaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lnilaiKriteriaMouseEntered
+    private void pusersMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pusersMouseExited
+        resetColor(pbuser);
+    }//GEN-LAST:event_pusersMouseExited
 
-    }//GEN-LAST:event_lnilaiKriteriaMouseEntered
+    private void plogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_plogoutMouseClicked
+      int close = JOptionPane.showConfirmDialog(null, "Apakah Anda Ingin Logout?","Select Option",JOptionPane.YES_NO_OPTION);
+        if(close==0) {
+            Login log = new Login();
+            log.setVisible(true);
+            this.dispose();
+        }
+    }//GEN-LAST:event_plogoutMouseClicked
 
-    private void lnilaiKriteriaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lnilaiKriteriaMouseExited
+    private void plogoutMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_plogoutMouseEntered
+        setColor(pblogout);
+    }//GEN-LAST:event_plogoutMouseEntered
 
-    }//GEN-LAST:event_lnilaiKriteriaMouseExited
+    private void plogoutMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_plogoutMouseExited
+        resetColor(pblogout);
+    }//GEN-LAST:event_plogoutMouseExited
 
-    private void lnilaiAlternatifMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lnilaiAlternatifMouseClicked
+    private void pdashboardMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pdashboardMouseClicked
+        pn_dasar.removeAll();   
+        pn_dasar.add(new Dashboard());
+        pn_dasar.repaint();
+        pn_dasar.revalidate();
+    }//GEN-LAST:event_pdashboardMouseClicked
 
-    }//GEN-LAST:event_lnilaiAlternatifMouseClicked
+    private void pdashboardMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pdashboardMouseEntered
+        setColor(pbdashboard);
+    }//GEN-LAST:event_pdashboardMouseEntered
 
-    private void lnilaiAlternatifMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lnilaiAlternatifMouseEntered
+    private void pdashboardMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pdashboardMouseExited
+        resetColor(pbdashboard);
+    }//GEN-LAST:event_pdashboardMouseExited
 
-    }//GEN-LAST:event_lnilaiAlternatifMouseEntered
+    private void phasilAkhirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_phasilAkhirMouseClicked
+        pn_dasar.removeAll();   
+        pn_dasar.add(new HasilPerangkingan());
+        pn_dasar.repaint();
+        pn_dasar.revalidate();
+    }//GEN-LAST:event_phasilAkhirMouseClicked
 
-    private void lnilaiAlternatifMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lnilaiAlternatifMouseExited
+    private void phasilAkhirMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_phasilAkhirMouseEntered
+        setColor(pbhasilAkhir);
+    }//GEN-LAST:event_phasilAkhirMouseEntered
 
-    }//GEN-LAST:event_lnilaiAlternatifMouseExited
+    private void phasilAkhirMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_phasilAkhirMouseExited
+        resetColor(pbhasilAkhir);
+    }//GEN-LAST:event_phasilAkhirMouseExited
 
-    private void lusersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lusersMouseClicked
+    private void pReportMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pReportMouseClicked
+        pn_dasar.removeAll();   
+        pn_dasar.add(new Report());
+        pn_dasar.repaint();
+        pn_dasar.revalidate();
+    }//GEN-LAST:event_pReportMouseClicked
 
-    }//GEN-LAST:event_lusersMouseClicked
+    private void pReportMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pReportMouseEntered
+        setColor(pbReport);
+    }//GEN-LAST:event_pReportMouseEntered
 
-    private void lusersMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lusersMouseEntered
-
-    }//GEN-LAST:event_lusersMouseEntered
-
-    private void lusersMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lusersMouseExited
-
-    }//GEN-LAST:event_lusersMouseExited
-
-    private void llogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_llogoutMouseClicked
-
-    }//GEN-LAST:event_llogoutMouseClicked
-
-    private void llogoutMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_llogoutMouseEntered
-
-    }//GEN-LAST:event_llogoutMouseEntered
-
-    private void llogoutMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_llogoutMouseExited
-
-    }//GEN-LAST:event_llogoutMouseExited
-
-    private void ldashboardMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ldashboardMouseClicked
-
-    }//GEN-LAST:event_ldashboardMouseClicked
-
-    private void ldashboardMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ldashboardMouseEntered
-
-    }//GEN-LAST:event_ldashboardMouseEntered
-
-    private void ldashboardMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ldashboardMouseExited
-
-    }//GEN-LAST:event_ldashboardMouseExited
-
-    private void lhasilAkhirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lhasilAkhirMouseClicked
-
-    }//GEN-LAST:event_lhasilAkhirMouseClicked
-
-    private void lhasilAkhirMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lhasilAkhirMouseEntered
-
-    }//GEN-LAST:event_lhasilAkhirMouseEntered
-
-    private void lhasilAkhirMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lhasilAkhirMouseExited
-
-    }//GEN-LAST:event_lhasilAkhirMouseExited
-
-    private void lReportMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lReportMouseClicked
-
-    }//GEN-LAST:event_lReportMouseClicked
-
-    private void lReportMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lReportMouseEntered
-
-    }//GEN-LAST:event_lReportMouseEntered
-
-    private void lReportMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lReportMouseExited
-
-    }//GEN-LAST:event_lReportMouseExited
+    private void pReportMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pReportMouseExited
+        resetColor(pbReport);
+    }//GEN-LAST:event_pReportMouseExited
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         pn_dasar.removeAll();
-//        pn_dasar.add(new home());
+        pn_dasar.add(new Dashboard());
         pn_dasar.repaint();
         pn_dasar.revalidate();
     }//GEN-LAST:event_formWindowOpened
@@ -726,18 +764,11 @@ public class Main extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel lReport;
-    private javax.swing.JLabel lalternatif;
-    private javax.swing.JLabel ldashboard;
-    private javax.swing.JLabel lhasilAkhir;
     private javax.swing.JLabel ljam;
-    private javax.swing.JLabel lkriteria;
-    private javax.swing.JLabel llogout;
-    private javax.swing.JLabel lnilaiAlternatif;
-    private javax.swing.JLabel lnilaiKriteria;
     private javax.swing.JLabel lpengguna;
     private javax.swing.JLabel ltanggal;
-    private javax.swing.JLabel lusers;
+    private javax.swing.JLabel pReport;
+    private javax.swing.JLabel palternatif;
     private javax.swing.JPanel pbReport;
     private javax.swing.JPanel pbalternatif;
     private javax.swing.JPanel pbdashboard;
@@ -747,9 +778,16 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JPanel pbnilaiAlternatif;
     private javax.swing.JPanel pbnilaiKriteria;
     private javax.swing.JPanel pbuser;
+    private javax.swing.JLabel pdashboard;
+    private javax.swing.JLabel phasilAkhir;
+    private javax.swing.JLabel pkriteria;
+    private javax.swing.JLabel plogout;
     private javax.swing.JPanel pn_content;
     private javax.swing.JPanel pn_dasar;
     private javax.swing.JPanel pn_header;
     private javax.swing.JPanel pn_sidebar;
+    private javax.swing.JLabel pnilaiAlternatif;
+    private javax.swing.JLabel pnilaiKriteria;
+    private javax.swing.JLabel pusers;
     // End of variables declaration//GEN-END:variables
 }
