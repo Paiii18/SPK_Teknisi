@@ -43,6 +43,19 @@ public class UserDAO {
         return user;
     }
      
+     private User mapResultSet(ResultSet rs) throws SQLException {
+        User user = new User();
+        user.setIdUser(rs.getInt("id_user"));
+        user.setUsername(rs.getString("username"));
+        user.setPassword(rs.getString("password"));
+        user.setNamaLengkap(rs.getString("nama_lengkap"));
+        user.setJabatan(rs.getString("jabatan"));
+        user.setRole(rs.getString("role"));
+        user.setStatus(rs.getString("status"));
+        user.setCreatedAt(rs.getDate("created_at"));
+        return user;
+    }
+
      public List<User> getAll() {
         List<User> list = new ArrayList<>();
         String sql = "SELECT * FROM user ORDER BY id_user ASC";

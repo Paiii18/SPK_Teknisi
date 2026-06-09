@@ -5,16 +5,15 @@
 package view;
 
 import config.KoneksiDB;
-import dao.dao_User;
+import dao.UserDAO;
 import java.awt.Color;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import main.MenuUtama;
-import model.model_User;
-import static view.formLogin.userLogin;
+import main.Main;
+import model.User;
 
 /**
  *
@@ -28,6 +27,7 @@ public class Login extends javax.swing.JFrame {
     private ResultSet rslogin;
     private String sql = "";
     public static String nmlengkap;
+    public static User userLogin;
     String username, password;
 
     /**
@@ -64,13 +64,13 @@ public class Login extends javax.swing.JFrame {
             String username = tUsername.getText().trim();
             String password = jPassword.getText().trim();
 
-            dao_User dao = new dao_User(KoneksiDB.getConnection());
-            model_User user = dao.login(username, password);
+            UserDAO dao = new UserDAO();
+            User user = dao.login(username, password);
 
             if (user != null) {
                 userLogin = user; // simpan user login ke variabel static
-                JOptionPane.showMessageDialog(this, "Login Berhasil, Selamat datang " + user.getnmLengkap());
-                new MenuUtama().setVisible(true);
+                JOptionPane.showMessageDialog(this, "Login Berhasil, Selamat datang " + user.getNamaLengkap());
+                new Main().setVisible(true);
                 dispose();
             } else {
                 JOptionPane.showMessageDialog(this, "Username atau Password salah!");
@@ -229,8 +229,8 @@ public class Login extends javax.swing.JFrame {
 
         pn_Utama.add(pn_cancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 410, 370, -1));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/logo.jpeg"))); // NOI18N
-        pn_Utama.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 90, -1, -1));
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/logo.png"))); // NOI18N
+        pn_Utama.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 90, 300, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
