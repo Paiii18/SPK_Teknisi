@@ -36,6 +36,7 @@ public class Report extends javax.swing.JPanel {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
         jButton1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/icons8-pdf-50.png"))); // NOI18N
         jButton1.setText("Data Teknisi");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -44,12 +45,15 @@ public class Report extends javax.swing.JPanel {
         });
 
         jButton2.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/icons8-pdf-50.png"))); // NOI18N
         jButton2.setText("Data Kriteria");
 
         jButton3.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/icons8-pdf-50.png"))); // NOI18N
         jButton3.setText("jButton1");
 
         jButton4.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/icons8-pdf-50.png"))); // NOI18N
         jButton4.setText("jButton1");
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
