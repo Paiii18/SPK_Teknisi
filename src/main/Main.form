@@ -36,8 +36,8 @@
               <Component id="pn_sidebar" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="pn_header" alignment="0" max="32767" attributes="0"/>
-                  <Component id="pn_content" alignment="0" max="32767" attributes="0"/>
+                  <Component id="pn_header" max="32767" attributes="0"/>
+                  <Component id="pn_content" min="-2" max="-2" attributes="0"/>
               </Group>
           </Group>
       </Group>
@@ -48,7 +48,7 @@
           <Group type="102" alignment="0" attributes="0">
               <Component id="pn_header" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
-              <Component id="pn_content" max="32767" attributes="0"/>
+              <Component id="pn_content" min="-2" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -67,7 +67,6 @@
               <Component id="pbalternatif" alignment="0" max="32767" attributes="0"/>
               <Component id="pbkriteria" alignment="0" max="32767" attributes="0"/>
               <Component id="pbnilaiKriteria" alignment="0" max="32767" attributes="0"/>
-              <Component id="pbnilaiAlternatif" alignment="0" max="32767" attributes="0"/>
               <Component id="pbuser" alignment="0" max="32767" attributes="0"/>
               <Component id="pblogout" alignment="0" max="32767" attributes="0"/>
               <Component id="pbdashboard" alignment="0" max="32767" attributes="0"/>
@@ -102,8 +101,6 @@
                   <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
                   <Component id="pbnilaiKriteria" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
-                  <Component id="pbnilaiAlternatif" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
                   <Component id="pbhasilAkhir" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
                   <Component id="pbReport" min="-2" max="-2" attributes="0"/>
@@ -111,7 +108,7 @@
                   <Component id="pbuser" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
                   <Component id="pblogout" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="85" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -277,7 +274,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="pnilaiKriteria" max="32767" attributes="0"/>
+                      <Component id="pnilaiKriteria" pref="177" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -305,55 +302,6 @@
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="pnilaiKriteriaMouseClicked"/>
                 <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="pnilaiKriteriaMouseEntered"/>
                 <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="pnilaiKriteriaMouseExited"/>
-              </Events>
-            </Component>
-          </SubComponents>
-        </Container>
-        <Container class="javax.swing.JPanel" name="pbnilaiAlternatif">
-          <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="0" green="0" red="33" type="rgb"/>
-            </Property>
-            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-              <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
-                <EtchetBorder/>
-              </Border>
-            </Property>
-          </Properties>
-
-          <Layout>
-            <DimensionLayout dim="0">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="pnilaiAlternatif" pref="197" max="32767" attributes="0"/>
-                  </Group>
-              </Group>
-            </DimensionLayout>
-            <DimensionLayout dim="1">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="pnilaiAlternatif" alignment="1" pref="40" max="32767" attributes="0"/>
-              </Group>
-            </DimensionLayout>
-          </Layout>
-          <SubComponents>
-            <Component class="javax.swing.JLabel" name="pnilaiAlternatif">
-              <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Times New Roman" size="14" style="1"/>
-                </Property>
-                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
-                </Property>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/assets/icons8-resume-25.png"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Perbandingan Alternatif"/>
-              </Properties>
-              <Events>
-                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="pnilaiAlternatifMouseClicked"/>
-                <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="pnilaiAlternatifMouseEntered"/>
-                <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="pnilaiAlternatifMouseExited"/>
               </Events>
             </Component>
           </SubComponents>
@@ -664,14 +612,17 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <Component id="pn_dasar" min="-2" pref="876" max="-2" attributes="0"/>
+                  <Component id="pn_dasar" min="-2" pref="1133" max="-2" attributes="0"/>
                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="pn_dasar" alignment="0" max="32767" attributes="0"/>
+              <Group type="102" alignment="1" attributes="0">
+                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  <Component id="pn_dasar" min="-2" pref="706" max="-2" attributes="0"/>
+              </Group>
           </Group>
         </DimensionLayout>
       </Layout>

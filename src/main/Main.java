@@ -17,7 +17,6 @@ import view.Dashboard;
 import view.HasilPerangkingan;
 import view.Kriteria;
 import view.Login;
-import view.NilaiAlternatif;
 import view.PerbandinganKriteria;
 import view.Report;
 import view.Teknisi;
@@ -109,8 +108,6 @@ public class Main extends javax.swing.JFrame {
         pkriteria = new javax.swing.JLabel();
         pbnilaiKriteria = new javax.swing.JPanel();
         pnilaiKriteria = new javax.swing.JLabel();
-        pbnilaiAlternatif = new javax.swing.JPanel();
-        pnilaiAlternatif = new javax.swing.JLabel();
         pbuser = new javax.swing.JPanel();
         pusers = new javax.swing.JLabel();
         pblogout = new javax.swing.JPanel();
@@ -252,43 +249,11 @@ public class Main extends javax.swing.JFrame {
             pbnilaiKriteriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pbnilaiKriteriaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(pnilaiKriteria, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(pnilaiKriteria, javax.swing.GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE))
         );
         pbnilaiKriteriaLayout.setVerticalGroup(
             pbnilaiKriteriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(pnilaiKriteria, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
-        );
-
-        pbnilaiAlternatif.setBackground(new java.awt.Color(51, 0, 0));
-        pbnilaiAlternatif.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        pnilaiAlternatif.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        pnilaiAlternatif.setForeground(new java.awt.Color(255, 255, 255));
-        pnilaiAlternatif.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/icons8-resume-25.png"))); // NOI18N
-        pnilaiAlternatif.setText("Perbandingan Alternatif");
-        pnilaiAlternatif.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                pnilaiAlternatifMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                pnilaiAlternatifMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                pnilaiAlternatifMouseExited(evt);
-            }
-        });
-
-        javax.swing.GroupLayout pbnilaiAlternatifLayout = new javax.swing.GroupLayout(pbnilaiAlternatif);
-        pbnilaiAlternatif.setLayout(pbnilaiAlternatifLayout);
-        pbnilaiAlternatifLayout.setHorizontalGroup(
-            pbnilaiAlternatifLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pbnilaiAlternatifLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(pnilaiAlternatif, javax.swing.GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE))
-        );
-        pbnilaiAlternatifLayout.setVerticalGroup(
-            pbnilaiAlternatifLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnilaiAlternatif, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
         );
 
         pbuser.setBackground(new java.awt.Color(51, 0, 0));
@@ -459,7 +424,6 @@ public class Main extends javax.swing.JFrame {
             .addComponent(pbalternatif, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(pbkriteria, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(pbnilaiKriteria, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(pbnilaiAlternatif, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(pbuser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(pblogout, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(pbdashboard, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -491,8 +455,6 @@ public class Main extends javax.swing.JFrame {
                 .addGap(0, 0, 0)
                 .addComponent(pbnilaiKriteria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(pbnilaiAlternatif, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
                 .addComponent(pbhasilAkhir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(pbReport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -500,7 +462,7 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(pbuser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(pblogout, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(85, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pn_header.setBackground(new java.awt.Color(51, 0, 0));
@@ -538,12 +500,14 @@ public class Main extends javax.swing.JFrame {
         pn_contentLayout.setHorizontalGroup(
             pn_contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pn_contentLayout.createSequentialGroup()
-                .addComponent(pn_dasar, javax.swing.GroupLayout.PREFERRED_SIZE, 876, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pn_dasar, javax.swing.GroupLayout.PREFERRED_SIZE, 1133, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         pn_contentLayout.setVerticalGroup(
             pn_contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pn_dasar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pn_contentLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(pn_dasar, javax.swing.GroupLayout.PREFERRED_SIZE, 706, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -555,7 +519,7 @@ public class Main extends javax.swing.JFrame {
                 .addGap(0, 0, 0)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(pn_header, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(pn_content, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(pn_content, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -563,7 +527,7 @@ public class Main extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(pn_header, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(pn_content, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(pn_content, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -614,21 +578,6 @@ public class Main extends javax.swing.JFrame {
     private void pnilaiKriteriaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnilaiKriteriaMouseExited
         resetColor(pbnilaiKriteria);
     }//GEN-LAST:event_pnilaiKriteriaMouseExited
-
-    private void pnilaiAlternatifMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnilaiAlternatifMouseClicked
-        pn_dasar.removeAll();   
-        pn_dasar.add(new NilaiAlternatif());
-        pn_dasar.repaint();
-        pn_dasar.revalidate();
-    }//GEN-LAST:event_pnilaiAlternatifMouseClicked
-
-    private void pnilaiAlternatifMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnilaiAlternatifMouseEntered
-        setColor(pbnilaiAlternatif);
-    }//GEN-LAST:event_pnilaiAlternatifMouseEntered
-
-    private void pnilaiAlternatifMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnilaiAlternatifMouseExited
-        resetColor(pbnilaiAlternatif);
-    }//GEN-LAST:event_pnilaiAlternatifMouseExited
 
     private void pusersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pusersMouseClicked
         pn_dasar.removeAll();   
@@ -775,7 +724,6 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JPanel pbhasilAkhir;
     private javax.swing.JPanel pbkriteria;
     private javax.swing.JPanel pblogout;
-    private javax.swing.JPanel pbnilaiAlternatif;
     private javax.swing.JPanel pbnilaiKriteria;
     private javax.swing.JPanel pbuser;
     private javax.swing.JLabel pdashboard;
@@ -786,7 +734,6 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JPanel pn_dasar;
     private javax.swing.JPanel pn_header;
     private javax.swing.JPanel pn_sidebar;
-    private javax.swing.JLabel pnilaiAlternatif;
     private javax.swing.JLabel pnilaiKriteria;
     private javax.swing.JLabel pusers;
     // End of variables declaration//GEN-END:variables
