@@ -3,7 +3,34 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Code/Project%20Base%20Netbeans/SPK_Teknisi/src/main/Main.java</file>
+            <file>file:/home/ryumaaa/NetBeansProjects/AHP_Teknisi/src/dao/NilaiTeknisiDAO.java</file>
+            <file>file:/home/ryumaaa/NetBeansProjects/AHP_Teknisi/src/view/NilaiAlternatif.java</file>
+            <file>file:/home/ryumaaa/NetBeansProjects/AHP_Teknisi/src/model/Teknisi.java</file>
+            <file>file:/home/ryumaaa/NetBeansProjects/AHP_Teknisi/src/model/Kriteria.java</file>
+            <file>file:/home/ryumaaa/NetBeansProjects/AHP_Teknisi/src/model/NilaiTeknisi.java</file>
+            <file>file:/home/ryumaaa/NetBeansProjects/AHP_Teknisi/src/model/MatriksPerbandingan.java</file>
+            <file>file:/home/ryumaaa/NetBeansProjects/AHP_Teknisi/src/main/Main.java</file>
+            <file>file:/home/ryumaaa/NetBeansProjects/AHP_Teknisi/src/view/User.java</file>
+            <file>file:/home/ryumaaa/NetBeansProjects/AHP_Teknisi/src/view/Report.java</file>
+            <file>file:/home/ryumaaa/NetBeansProjects/AHP_Teknisi/src/view/Kriteria.java</file>
+            <file>file:/home/ryumaaa/NetBeansProjects/AHP_Teknisi/src/model/User.java</file>
+            <file>file:/home/ryumaaa/NetBeansProjects/AHP_Teknisi/src/dao/MatriksDAO.java</file>
+            <file>file:/home/ryumaaa/NetBeansProjects/AHP_Teknisi/src/view/HasilPerangkingan.java</file>
+            <file>file:/home/ryumaaa/NetBeansProjects/AHP_Teknisi/src/model/HasilPerankingan.java</file>
+            <file>file:/home/ryumaaa/NetBeansProjects/AHP_Teknisi/src/dao/HasilPerankinganDAO.java</file>
+            <file>file:/home/ryumaaa/NetBeansProjects/AHP_Teknisi/src/model/Hasilahp.java</file>
+            <file>file:/home/ryumaaa/NetBeansProjects/AHP_Teknisi/src/dao/TeknisiDAO.java</file>
+            <file>file:/home/ryumaaa/NetBeansProjects/AHP_Teknisi/src/dao/KriteriaDAO.java</file>
+            <file>file:/home/ryumaaa/NetBeansProjects/AHP_Teknisi/src/view/PerbandinganKriteria.java</file>
+            <file>file:/home/ryumaaa/NetBeansProjects/AHP_Teknisi/src/view/ProsesAHP.java</file>
+            <file>file:/home/ryumaaa/NetBeansProjects/AHP_Teknisi/src/utils/ReportGenerator.java</file>
+            <file>file:/home/ryumaaa/NetBeansProjects/AHP_Teknisi/src/view/Login.java</file>
+            <file>file:/home/ryumaaa/NetBeansProjects/AHP_Teknisi/src/view/Teknisi.java</file>
+            <file>file:/home/ryumaaa/NetBeansProjects/AHP_Teknisi/src/utils/AHPCalculator.java</file>
+            <file>file:/home/ryumaaa/NetBeansProjects/AHP_Teknisi/src/view/Matriks.java</file>
+            <file>file:/home/ryumaaa/NetBeansProjects/AHP_Teknisi/src/view/Dashboard.java</file>
+            <file>file:/home/ryumaaa/NetBeansProjects/AHP_Teknisi/src/dao/UserDAO.java</file>
+            <file>file:/home/ryumaaa/NetBeansProjects/AHP_Teknisi/src/config/KoneksiDB.java</file>
         </group>
     </open-files>
 </project-private>

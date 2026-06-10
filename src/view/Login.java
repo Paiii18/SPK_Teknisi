@@ -5,16 +5,15 @@
 package view;
 
 import config.KoneksiDB;
-import dao.dao_User;
+import dao.UserDAO;
 import java.awt.Color;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import main.MenuUtama;
-import model.model_User;
-import static view.formLogin.userLogin;
+import main.Main;
+import model.User;
 
 /**
  *
@@ -28,6 +27,7 @@ public class Login extends javax.swing.JFrame {
     private ResultSet rslogin;
     private String sql = "";
     public static String nmlengkap;
+    public static User userLogin;
     String username, password;
 
     /**
@@ -64,13 +64,13 @@ public class Login extends javax.swing.JFrame {
             String username = tUsername.getText().trim();
             String password = jPassword.getText().trim();
 
-            dao_User dao = new dao_User(KoneksiDB.getConnection());
-            model_User user = dao.login(username, password);
+            UserDAO dao = new UserDAO();
+            User user = dao.login(username, password);
 
             if (user != null) {
                 userLogin = user; // simpan user login ke variabel static
-                JOptionPane.showMessageDialog(this, "Login Berhasil, Selamat datang " + user.getnmLengkap());
-                new MenuUtama().setVisible(true);
+                JOptionPane.showMessageDialog(this, "Login Berhasil, Selamat datang " + user.getNamaLengkap());
+                new Main().setVisible(true);
                 dispose();
             } else {
                 JOptionPane.showMessageDialog(this, "Username atau Password salah!");
@@ -112,7 +112,7 @@ public class Login extends javax.swing.JFrame {
         pn_Utama.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lbl_eye.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbl_eye.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icons8_eye_20px_1.png"))); // NOI18N
+        lbl_eye.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/icons8_eye_20px_1.png"))); // NOI18N
         lbl_eye.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 lbl_eyeMousePressed(evt);
@@ -121,7 +121,7 @@ public class Login extends javax.swing.JFrame {
         pn_Utama.add(lbl_eye, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 330, 20, 20));
 
         lbl_hideeye.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbl_hideeye.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icons8_hide_20px_1.png"))); // NOI18N
+        lbl_hideeye.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/icons8_hide_20px_1.png"))); // NOI18N
         lbl_hideeye.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 lbl_hideeyeMousePressed(evt);
@@ -178,13 +178,13 @@ public class Login extends javax.swing.JFrame {
         pn_Utama.add(pn_login, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 370, 370, -1));
 
         lblClose.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icons8_close_window_50px.png"))); // NOI18N
+        lblClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/icons8_close_window_50px.png"))); // NOI18N
         lblClose.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 lblCloseMousePressed(evt);
             }
         });
-        pn_Utama.add(lblClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 0, -1, -1));
+        pn_Utama.add(lblClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 0, 50, 50));
 
         jPassword.setText("********");
         jPassword.setPreferredSize(new java.awt.Dimension(54, 20));
@@ -229,14 +229,14 @@ public class Login extends javax.swing.JFrame {
 
         pn_Utama.add(pn_cancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 410, 370, -1));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/logo.jpeg"))); // NOI18N
-        pn_Utama.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 90, -1, -1));
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/logo.png"))); // NOI18N
+        pn_Utama.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 90, 300, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pn_Utama, javax.swing.GroupLayout.DEFAULT_SIZE, 516, Short.MAX_VALUE)
+            .addComponent(pn_Utama, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
