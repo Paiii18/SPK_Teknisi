@@ -95,7 +95,7 @@ public class Teknisi extends javax.swing.JPanel {
         namateknisi.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
 
         jeniskelamin.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        jeniskelamin.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jeniskelamin.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-Pilih jenis kelamin", "Laki-laki", "Perempuan" }));
 
         tempatlahir.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
 
@@ -116,10 +116,10 @@ public class Teknisi extends javax.swing.JPanel {
         divisi.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
 
         jabatan.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        jabatan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jabatan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-Pilih jabatan", "Manager IT", "SPV IT", "Staff" }));
 
         status.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        status.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        status.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-Pilih status", "Aktif", "Tidak aktif" }));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
