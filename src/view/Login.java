@@ -112,7 +112,7 @@ public class Login extends javax.swing.JFrame {
         pn_Utama.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lbl_eye.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbl_eye.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icons8_eye_20px_1.png"))); // NOI18N
+        lbl_eye.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/icons8_eye_20px_1.png"))); // NOI18N
         lbl_eye.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 lbl_eyeMousePressed(evt);
@@ -121,7 +121,7 @@ public class Login extends javax.swing.JFrame {
         pn_Utama.add(lbl_eye, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 330, 20, 20));
 
         lbl_hideeye.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbl_hideeye.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icons8_hide_20px_1.png"))); // NOI18N
+        lbl_hideeye.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/icons8_hide_20px_1.png"))); // NOI18N
         lbl_hideeye.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 lbl_hideeyeMousePressed(evt);
@@ -178,13 +178,13 @@ public class Login extends javax.swing.JFrame {
         pn_Utama.add(pn_login, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 370, 370, -1));
 
         lblClose.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icons8_close_window_50px.png"))); // NOI18N
+        lblClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/icons8_close_window_50px.png"))); // NOI18N
         lblClose.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 lblCloseMousePressed(evt);
             }
         });
-        pn_Utama.add(lblClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 0, -1, -1));
+        pn_Utama.add(lblClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 0, 50, 50));
 
         jPassword.setText("********");
         jPassword.setPreferredSize(new java.awt.Dimension(54, 20));
@@ -236,7 +236,7 @@ public class Login extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pn_Utama, javax.swing.GroupLayout.DEFAULT_SIZE, 516, Short.MAX_VALUE)
+            .addComponent(pn_Utama, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
