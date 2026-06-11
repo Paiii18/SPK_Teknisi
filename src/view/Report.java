@@ -4,6 +4,8 @@
  */
 package view;
 
+import utils.ReportGenerator;
+
 /**
  *
  * @author USER
@@ -15,6 +17,12 @@ public class Report extends javax.swing.JPanel {
      */
     public Report() {
         initComponents();
+        jButton3.setText("Hasil Perhitungan AHP");
+        jButton4.setText("Perangkingan Teknisi Terbaik");
+
+        jButton2.addActionListener(e -> ReportGenerator.showReport("/report/laporan_kriteria.jrxml"));
+        jButton3.addActionListener(e -> ReportGenerator.showReport("/report/laporan_hasil_ahp.jrxml"));
+        jButton4.addActionListener(e -> ReportGenerator.showReport("/report/laporan_perankingan.jrxml"));
     }
 
     /**
@@ -107,7 +115,7 @@ public class Report extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        ReportGenerator.showReport("/report/laporan_teknisi.jrxml");
     }//GEN-LAST:event_jButton1ActionPerformed
 
 
