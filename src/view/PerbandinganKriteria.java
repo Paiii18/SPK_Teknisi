@@ -4,17 +4,214 @@
  */
 package view;
 
+import dao.KriteriaDAO;
+import dao.MatriksDAO;
+import model.Kriteria;
+import model.MatriksPerbandingan;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author USER
  */
 public class PerbandinganKriteria extends javax.swing.JPanel {
 
+    private List<Kriteria> kriteriaList;
+    private int selectedIdBaris = -1;
+    private int selectedIdKolom = -1;
+
     /**
      * Creates new form PerbandinganKriteria
      */
     public PerbandinganKriteria() {
         initComponents();
+        jLabel1.setText("Kode Perbandingan");
+        username.setEnabled(false);
+        generateKodePerbandingan();
+        loadComboBox();
+        loadTable();
+
+        jButton1.addActionListener(e -> simpanData());
+        jButton2.addActionListener(e -> editData());
+        jButton3.addActionListener(e -> hapusData());
+        jButton4.addActionListener(e -> resetForm());
+
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableClicked();
+            }
+        });
+    }
+
+    private void generateKodePerbandingan() {
+        MatriksDAO dao = new MatriksDAO();
+        String kode = dao.generateKodePerbandingan();
+        username.setText(kode);
+    }
+
+    private void loadComboBox() {
+        KriteriaDAO dao = new KriteriaDAO();
+        kriteriaList = dao.getAll();
+
+        jComboBox1.removeAllItems();
+        jComboBox2.removeAllItems();
+
+        for (Kriteria k : kriteriaList) {
+            jComboBox1.addItem(k.getNamaKriteria());
+            jComboBox2.addItem(k.getNamaKriteria());
+        }
+    }
+
+    private void loadTable() {
+        DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("Kode");
+        model.addColumn("Kriteria 1");
+        model.addColumn("Kriteria 2");
+        model.addColumn("Nilai");
+
+        MatriksDAO dao = new MatriksDAO();
+        List<MatriksPerbandingan> list = dao.getAll();
+
+        int no = 1;
+        for (MatriksPerbandingan m : list) {
+            model.addRow(new Object[]{
+                String.format("PK%02d", no++),
+                m.getNamaKriteriaBaris(),
+                m.getNamaKriteriaKolom(),
+                m.getNilaiPerbandingan()
+            });
+        }
+
+        jTable1.setModel(model);
+    }
+
+    private void simpanData() {
+        if (kriteriaList == null || kriteriaList.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Data kriteria belum tersedia");
+            return;
+        }
+
+        if (jTextField1.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Nilai tidak boleh kosong");
+            return;
+        }
+
+        int idx1 = jComboBox1.getSelectedIndex();
+        int idx2 = jComboBox2.getSelectedIndex();
+
+        if (idx1 == idx2) {
+            JOptionPane.showMessageDialog(this, "Kriteria 1 dan Kriteria 2 tidak boleh sama");
+            return;
+        }
+
+        int idBaris = kriteriaList.get(idx1).getIdKriteria();
+        int idKolom = kriteriaList.get(idx2).getIdKriteria();
+        double nilai = Double.parseDouble(jTextField1.getText().trim());
+
+        MatriksDAO dao = new MatriksDAO();
+
+        if (dao.upsert(idBaris, idKolom, nilai)) {
+            dao.upsert(idKolom, idBaris, 1.0 / nilai);
+
+            JOptionPane.showMessageDialog(this, "Data Perbandingan Berhasil Disimpan");
+            resetForm();
+            loadTable();
+            generateKodePerbandingan();
+        } else {
+            JOptionPane.showMessageDialog(this, "Data Perbandingan Gagal Disimpan");
+        }
+    }
+
+    private void editData() {
+        if (selectedIdBaris == -1 || selectedIdKolom == -1) {
+            JOptionPane.showMessageDialog(this, "Pilih data terlebih dahulu");
+            return;
+        }
+
+        if (jTextField1.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Nilai tidak boleh kosong");
+            return;
+        }
+
+        double nilai = Double.parseDouble(jTextField1.getText().trim());
+
+        MatriksDAO dao = new MatriksDAO();
+
+        if (dao.upsert(selectedIdBaris, selectedIdKolom, nilai)) {
+            dao.upsert(selectedIdKolom, selectedIdBaris, 1.0 / nilai);
+
+            JOptionPane.showMessageDialog(this, "Data berhasil diubah");
+            resetForm();
+            loadTable();
+        } else {
+            JOptionPane.showMessageDialog(this, "Data gagal diubah");
+        }
+    }
+
+    private void hapusData() {
+        if (selectedIdBaris == -1 || selectedIdKolom == -1) {
+            JOptionPane.showMessageDialog(this, "Pilih data terlebih dahulu");
+            return;
+        }
+
+        int konfirmasi = JOptionPane.showConfirmDialog(this,
+                "Yakin ingin menghapus data perbandingan ini?",
+                "Konfirmasi Hapus", JOptionPane.YES_NO_OPTION);
+
+        if (konfirmasi == JOptionPane.YES_OPTION) {
+            MatriksDAO dao = new MatriksDAO();
+            if (dao.delete(selectedIdBaris, selectedIdKolom)) {
+                dao.delete(selectedIdKolom, selectedIdBaris);
+                JOptionPane.showMessageDialog(this, "Data berhasil dihapus");
+                resetForm();
+                loadTable();
+                generateKodePerbandingan();
+            } else {
+                JOptionPane.showMessageDialog(this, "Data gagal dihapus");
+            }
+        }
+    }
+
+    private void tableClicked() {
+        int row = jTable1.getSelectedRow();
+        if (row == -1) return;
+
+        MatriksDAO dao = new MatriksDAO();
+        List<MatriksPerbandingan> list = dao.getAll();
+
+        if (row < list.size()) {
+            MatriksPerbandingan m = list.get(row);
+            selectedIdBaris = m.getIdKriteriaBaris();
+            selectedIdKolom = m.getIdKriteriaKolom();
+
+            for (int i = 0; i < kriteriaList.size(); i++) {
+                if (kriteriaList.get(i).getIdKriteria() == m.getIdKriteriaBaris()) {
+                    jComboBox1.setSelectedIndex(i);
+                }
+                if (kriteriaList.get(i).getIdKriteria() == m.getIdKriteriaKolom()) {
+                    jComboBox2.setSelectedIndex(i);
+                }
+            }
+
+            jTextField1.setText(String.valueOf(m.getNilaiPerbandingan()));
+            username.setText(jTable1.getValueAt(row, 0).toString());
+
+            jButton1.setVisible(false);
+        }
+    }
+
+    private void resetForm() {
+        jTextField1.setText("");
+        if (jComboBox1.getItemCount() > 0) jComboBox1.setSelectedIndex(0);
+        if (jComboBox2.getItemCount() > 0) jComboBox2.setSelectedIndex(0);
+        selectedIdBaris = -1;
+        selectedIdKolom = -1;
+        generateKodePerbandingan();
+        jButton1.setVisible(true);
+        jTextField1.requestFocus();
     }
 
     /**
@@ -50,7 +247,7 @@ public class PerbandinganKriteria extends javax.swing.JPanel {
 
         jLabel1.setBackground(new java.awt.Color(0, 0, 0));
         jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jLabel1.setText("Kode Kriteria");
+        jLabel1.setText("Kode Perbandingan");
 
         username.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
 
@@ -136,7 +333,7 @@ public class PerbandinganKriteria extends javax.swing.JPanel {
                             .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(username, javax.swing.GroupLayout.DEFAULT_SIZE, 846, Short.MAX_VALUE)
                             .addComponent(jSeparator1))))
-                .addContainerGap(76, Short.MAX_VALUE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

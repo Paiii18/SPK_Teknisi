@@ -120,6 +120,33 @@ public class MatriksDAO {
         }
     }
 
+    // kode untuk menghapus data spesifik
+    public boolean delete(int idKriteriaBaris, int idKriteriaKolom) {
+        String sql = "DELETE FROM matriks_perbandingan WHERE id_kriteria_baris = ? AND id_kriteria_kolom = ?";
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, idKriteriaBaris);
+            ps.setInt(2, idKriteriaKolom);
+            return ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            System.err.println("Error delete matriks: " + e.getMessage());
+            return false;
+        }
+    }
+
+    // kode untuk generate kode perbandingan
+    public String generateKodePerbandingan() {
+        String sql = "SELECT id_matriks FROM matriks_perbandingan ORDER BY id_matriks DESC LIMIT 1";
+        try (Statement st = conn.createStatement(); ResultSet rs = st.executeQuery(sql)) {
+            if (rs.next()) {
+                int number = rs.getInt("id_matriks") + 1;
+                return String.format("PK%02d", number);
+            }
+        } catch (SQLException e) {
+            System.err.println("Error generateKodePerbandingan: " + e.getMessage());
+        }
+        return "PK01";
+    }
+
     //kode untuk menghapus semua
     public boolean deleteAll() {
         String sql = "DELETE FROM matriks_perbandingan";

@@ -4,17 +4,153 @@
  */
 package view;
 
+import dao.HasilAHPDAO;
+import dao.HasilPerankinganDAO;
+import dao.KriteriaDAO;
+import dao.MatriksDAO;
+import dao.NilaiTeknisiDAO;
+import dao.TeknisiDAO;
+import model.Hasilahp;
+import model.HasilPerankingan;
+import model.Kriteria;
+import model.Teknisi;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author ryumaaa
  */
 public class HasilPerangkingan extends javax.swing.JPanel {
 
+    private static final double[] RI = {0.00, 0.00, 0.58, 0.90, 1.12, 1.24, 1.32, 1.41, 1.45, 1.49};
+
     /**
      * Creates new form HasilPerangkingan
      */
     public HasilPerangkingan() {
         initComponents();
+        jTextField1.setEnabled(false);
+        jTextField2.setEnabled(false);
+        jTextField3.setEnabled(false);
+
+        jButton1.addActionListener(e -> prosesPerbandinganKriteria());
+    }
+
+    private void prosesPerbandinganKriteria() {
+        KriteriaDAO kriteriaDAO = new KriteriaDAO();
+        MatriksDAO matriksDAO = new MatriksDAO();
+
+        List<Kriteria> kriteriaList = kriteriaDAO.getAll();
+        int n = kriteriaList.size();
+
+        if (n < 2) {
+            JOptionPane.showMessageDialog(this, "Minimal 2 kriteria untuk melakukan perbandingan");
+            return;
+        }
+
+        List<Integer> idList = new ArrayList<>();
+        for (Kriteria k : kriteriaList) {
+            idList.add(k.getIdKriteria());
+        }
+
+        // Ambil matriks perbandingan
+        double[][] matriks = matriksDAO.getMatriksArray(idList);
+
+        // Hitung jumlah kolom
+        double[] colSum = new double[n];
+        for (int j = 0; j < n; j++) {
+            for (int i = 0; i < n; i++) {
+                colSum[j] += matriks[i][j];
+            }
+        }
+
+        // Normalisasi matriks
+        double[][] normalized = new double[n][n];
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                normalized[i][j] = matriks[i][j] / colSum[j];
+            }
+        }
+
+        // Hitung bobot prioritas (rata-rata baris dari matriks normalisasi)
+        double[] bobot = new double[n];
+        for (int i = 0; i < n; i++) {
+            double sum = 0;
+            for (int j = 0; j < n; j++) {
+                sum += normalized[i][j];
+            }
+            bobot[i] = sum / n;
+        }
+
+        // Hitung Lambda Max
+        double[] weightedSum = new double[n];
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                weightedSum[i] += matriks[i][j] * bobot[j];
+            }
+        }
+
+        double lambdaMax = 0;
+        for (int i = 0; i < n; i++) {
+            lambdaMax += weightedSum[i] / bobot[i];
+        }
+        lambdaMax /= n;
+
+        // Hitung CI dan CR
+        double ci = (lambdaMax - n) / (n - 1);
+        double ri = (n <= 10) ? RI[n - 1] : 1.49;
+        double cr = (ri > 0) ? ci / ri : 0;
+        String keteranganCR = (cr <= 0.1) ? "Konsisten" : "Tidak Konsisten";
+
+        // Tampilkan di jTable1 (format matriks + kolom bobot)
+        DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("Kriteria");
+        for (Kriteria k : kriteriaList) {
+            model.addColumn(k.getNamaKriteria());
+        }
+        model.addColumn("Bobot Prioritas");
+
+        for (int i = 0; i < n; i++) {
+            Object[] row = new Object[n + 2];
+            row[0] = kriteriaList.get(i).getNamaKriteria();
+            for (int j = 0; j < n; j++) {
+                row[j + 1] = String.format("%.4f", matriks[i][j]);
+            }
+            row[n + 1] = String.format("%.4f", bobot[i]);
+            model.addRow(row);
+        }
+
+        jTable1.setModel(model);
+
+        // Tampilkan Lambda Max, CI, CR
+        jTextField1.setText(String.format("%.4f", lambdaMax));
+        jTextField2.setText(String.format("%.4f", ci));
+        jTextField3.setText(String.format("%.4f", cr) + " (" + keteranganCR + ")");
+
+        // Simpan ke hasil_ahp
+        HasilAHPDAO hasilDAO = new HasilAHPDAO();
+        hasilDAO.deleteAll();
+
+        List<Hasilahp> listHasil = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            Hasilahp h = new Hasilahp(
+                    idList.get(i), bobot[i], lambdaMax, ci, cr, keteranganCR
+            );
+            listHasil.add(h);
+        }
+        hasilDAO.insertBatch(listHasil);
+
+        // Update bobot_akhir di tabel kriteria
+        for (int i = 0; i < n; i++) {
+            kriteriaDAO.updateBobotAkhir(idList.get(i), bobot[i]);
+        }
+
+        JOptionPane.showMessageDialog(this,
+                "Proses Perbandingan Kriteria Selesai\nCR = "
+                + String.format("%.4f", cr) + " (" + keteranganCR + ")");
     }
 
     /**
@@ -190,11 +326,109 @@ public class HasilPerangkingan extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
+        int konfirmasi = JOptionPane.showConfirmDialog(this,
+                "Yakin ingin mereset semua hasil?",
+                "Konfirmasi Reset", JOptionPane.YES_NO_OPTION);
+
+        if (konfirmasi == JOptionPane.YES_OPTION) {
+            HasilAHPDAO hasilAHPDAO = new HasilAHPDAO();
+            HasilPerankinganDAO perankinganDAO = new HasilPerankinganDAO();
+
+            hasilAHPDAO.deleteAll();
+            perankinganDAO.deleteAll();
+
+            jTable1.setModel(new DefaultTableModel());
+            jTable2.setModel(new DefaultTableModel());
+
+            jTextField1.setText("");
+            jTextField2.setText("");
+            jTextField3.setText("");
+
+            JOptionPane.showMessageDialog(this, "Semua hasil berhasil direset");
+        }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        HasilAHPDAO hasilAHPDAO = new HasilAHPDAO();
+        List<Hasilahp> listAHP = hasilAHPDAO.getAll();
+
+        if (listAHP.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Proses Perbandingan Kriteria terlebih dahulu");
+            return;
+        }
+
+        TeknisiDAO teknisiDAO = new TeknisiDAO();
+        NilaiTeknisiDAO nilaiDAO = new NilaiTeknisiDAO();
+        KriteriaDAO kriteriaDAO = new KriteriaDAO();
+
+        List<Teknisi> teknisiList = teknisiDAO.getAll();
+        List<Kriteria> kriteriaList = kriteriaDAO.getAll();
+
+        if (teknisiList.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Data teknisi belum tersedia");
+            return;
+        }
+
+        // Map bobot prioritas per kriteria
+        java.util.Map<Integer, Double> bobotMap = new java.util.HashMap<>();
+        for (Hasilahp h : listAHP) {
+            bobotMap.put(h.getIdKriteria(), h.getBobotPrioritas());
+        }
+
+        // Hitung nilai akhir tiap teknisi
+        List<HasilPerankingan> hasilList = new ArrayList<>();
+        for (Teknisi t : teknisiList) {
+            double nilaiAkhir = 0;
+            for (Kriteria k : kriteriaList) {
+                double nilai = nilaiDAO.getNilai(t.getIdTeknisi(), k.getIdKriteria());
+                double bobot = bobotMap.getOrDefault(k.getIdKriteria(), 0.0);
+                nilaiAkhir += nilai * bobot;
+            }
+
+            HasilPerankingan hp = new HasilPerankingan();
+            hp.setIdTeknisi(t.getIdTeknisi());
+            hp.setNamaTeknisi(t.getNamaTeknisi());
+            hp.setNilaiAkhir(nilaiAkhir);
+            hasilList.add(hp);
+        }
+
+        // Urutkan berdasarkan nilai akhir (terbesar ke terkecil)
+        hasilList.sort((a, b) -> Double.compare(b.getNilaiAkhir(), a.getNilaiAkhir()));
+
+        // Tentukan ranking dan keterangan
+        for (int i = 0; i < hasilList.size(); i++) {
+            hasilList.get(i).setRanking(i + 1);
+            if (i == 0) {
+                hasilList.get(i).setKeterangan("Teknisi Terbaik");
+            } else {
+                hasilList.get(i).setKeterangan("Ranking " + (i + 1));
+            }
+        }
+
+        // Tampilkan di jTable2
+        DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("Ranking");
+        model.addColumn("Nama Teknisi");
+        model.addColumn("Nilai Akhir");
+        model.addColumn("Keterangan");
+
+        for (HasilPerankingan hp : hasilList) {
+            model.addRow(new Object[]{
+                hp.getRanking(),
+                hp.getNamaTeknisi(),
+                String.format("%.4f", hp.getNilaiAkhir()),
+                hp.getKeterangan()
+            });
+        }
+
+        jTable2.setModel(model);
+
+        // Simpan ke database
+        HasilPerankinganDAO perankinganDAO = new HasilPerankinganDAO();
+        perankinganDAO.deleteAll();
+        perankinganDAO.insertBatch(hasilList);
+
+        JOptionPane.showMessageDialog(this, "Proses Hitung Hasil Akhir Selesai");
     }//GEN-LAST:event_jButton2ActionPerformed
 
 
