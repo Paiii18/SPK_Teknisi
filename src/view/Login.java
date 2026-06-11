@@ -43,7 +43,7 @@ public class Login extends javax.swing.JFrame {
     }
 
     public void resetColor(JPanel p1) {
-        p1.setBackground(new Color(255, 178, 0));
+        p1.setBackground(new Color(153,153,153));
     }
 
     /**
@@ -104,6 +104,9 @@ public class Login extends javax.swing.JFrame {
         pn_cancel = new javax.swing.JPanel();
         lbl_cancel = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        labelregis = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -146,7 +149,7 @@ public class Login extends javax.swing.JFrame {
         });
         pn_Utama.add(tUsername, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 270, 370, 40));
 
-        pn_login.setBackground(new java.awt.Color(204, 0, 51));
+        pn_login.setBackground(new java.awt.Color(153, 153, 153));
 
         lbl_login.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         lbl_login.setForeground(new java.awt.Color(255, 255, 255));
@@ -198,7 +201,7 @@ public class Login extends javax.swing.JFrame {
         });
         pn_Utama.add(jPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 320, 370, 40));
 
-        pn_cancel.setBackground(new java.awt.Color(204, 0, 0));
+        pn_cancel.setBackground(new java.awt.Color(153, 153, 153));
 
         lbl_cancel.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         lbl_cancel.setForeground(new java.awt.Color(255, 255, 255));
@@ -231,6 +234,27 @@ public class Login extends javax.swing.JFrame {
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/logo.png"))); // NOI18N
         pn_Utama.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 90, 300, -1));
+
+        labelregis.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        labelregis.setForeground(new java.awt.Color(0, 0, 255));
+        labelregis.setText("Register");
+        labelregis.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                labelregisMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                labelregisMouseEntered(evt);
+            }
+        });
+        pn_Utama.add(labelregis, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 450, 50, -1));
+
+        jLabel4.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel4.setText("Disini");
+        pn_Utama.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 450, 40, -1));
+
+        jLabel5.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel5.setText("Belum punya account ? ");
+        pn_Utama.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 450, 150, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -320,6 +344,17 @@ public class Login extends javax.swing.JFrame {
         resetColor(pn_cancel);
     }//GEN-LAST:event_lbl_cancelMouseExited
 
+    private void labelregisMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelregisMouseClicked
+        Register regis = new Register();
+        regis.setVisible(true);
+
+        this.dispose();
+    }//GEN-LAST:event_labelregisMouseClicked
+
+    private void labelregisMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelregisMouseEntered
+
+    }//GEN-LAST:event_labelregisMouseEntered
+
     /**
      * @param args the command line arguments
      */
@@ -361,7 +396,10 @@ public class Login extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPasswordField jPassword;
+    private javax.swing.JLabel labelregis;
     private javax.swing.JLabel lblClose;
     private javax.swing.JLabel lbl_cancel;
     private javax.swing.JLabel lbl_eye;

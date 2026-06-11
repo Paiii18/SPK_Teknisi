@@ -19,15 +19,177 @@ import model.User;
  * @author ryumaaa
  */
 public class UserDAO {
-     private Connection conn;
- 
+
+    private Connection conn;
+
     public UserDAO() {
         this.conn = KoneksiDB.getConnection();
     }
-    
+
     // kode untuk mengecek username & password
-    
-     public User login(String username, String password) {
+    public boolean register(User user) {
+
+        String sql = "INSERT INTO user "
+                + "(username, password, nama_lengkap, role, status) "
+                + "VALUES (?, MD5(?), ?, ?, 'aktif')";
+
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, user.getUsername());
+            ps.setString(2, user.getPassword());
+            ps.setString(3, user.getNamaLengkap());
+            ps.setString(4, user.getRole());
+
+            return ps.executeUpdate() > 0;
+
+        } catch (SQLException e) {
+
+            System.err.println("Error Register : " + e.getMessage());
+
+        }
+
+        return false;
+    }
+
+    public List<User> search(String keyword) {
+
+        List<User> list = new ArrayList<>();
+
+        String sql = "SELECT * FROM user "
+                + "WHERE nama_lengkap LIKE ? "
+                + "OR username LIKE ? "
+                + "ORDER BY id_user ASC";
+
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, "%" + keyword + "%");
+            ps.setString(2, "%" + keyword + "%");
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+
+                list.add(mapResultSet(rs));
+
+            }
+
+        } catch (SQLException e) {
+
+            System.err.println("Error Search User : "
+                    + e.getMessage());
+
+        }
+
+        return list;
+    }
+
+    public boolean updateDenganPassword(User user) {
+
+        String sql
+                = "UPDATE `user` SET "
+                + "username = ?, "
+                + "password = MD5(?), "
+                + "role = ? "
+                + "WHERE nama_lengkap = ?";
+
+        try (PreparedStatement ps
+                = conn.prepareStatement(sql)) {
+
+            ps.setString(1, user.getUsername());
+            ps.setString(2, user.getPassword());
+            ps.setString(3, user.getRole());
+            ps.setString(4, user.getNamaLengkap());
+
+            return ps.executeUpdate() > 0;
+
+        } catch (SQLException e) {
+
+            System.err.println("Error Update : "
+                    + e.getMessage());
+        }
+
+        return false;
+    }
+
+    public boolean updateTanpaPassword(User user) {
+
+        String sql
+                = "UPDATE `user` SET "
+                + "username = ?, "
+                + "role = ? "
+                + "WHERE nama_lengkap = ?";
+
+        try (PreparedStatement ps
+                = conn.prepareStatement(sql)) {
+
+            ps.setString(1, user.getUsername());
+            ps.setString(2, user.getRole());
+            ps.setString(3, user.getNamaLengkap());
+
+            return ps.executeUpdate() > 0;
+
+        } catch (SQLException e) {
+
+            System.err.println("Error Update : "
+                    + e.getMessage());
+        }
+
+        return false;
+    }
+
+    public boolean update(User user) {
+
+        String sql
+                = "UPDATE user SET "
+                + "username=?, "
+                + "nama_lengkap=?, "
+                + "role=?, "
+                + "status=? "
+                + "WHERE id_user=?";
+
+        try (PreparedStatement ps
+                = conn.prepareStatement(sql)) {
+
+            ps.setString(1, user.getUsername());
+            ps.setString(2, user.getNamaLengkap());
+            ps.setString(3, user.getRole());
+            ps.setString(4, user.getStatus());
+            ps.setInt(5, user.getIdUser());
+
+            return ps.executeUpdate() > 0;
+
+        } catch (SQLException e) {
+
+            System.err.println("Error update user : "
+                    + e.getMessage());
+
+        }
+
+        return false;
+    }
+
+    public boolean cekUsername(String username) {
+
+        String sql = "SELECT * FROM user WHERE username = ?";
+
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, username);
+
+            ResultSet rs = ps.executeQuery();
+
+            return rs.next();
+
+        } catch (SQLException e) {
+
+            System.err.println("Error Cek Username : " + e.getMessage());
+
+        }
+
+        return false;
+    }
+
+    public User login(String username, String password) {
         User user = null;
         String sql = "SELECT * FROM user WHERE username = ? AND password = MD5(?) AND status = 'aktif'";
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -42,25 +204,23 @@ public class UserDAO {
         }
         return user;
     }
-     
-     private User mapResultSet(ResultSet rs) throws SQLException {
+
+    private User mapResultSet(ResultSet rs) throws SQLException {
         User user = new User();
         user.setIdUser(rs.getInt("id_user"));
         user.setUsername(rs.getString("username"));
         user.setPassword(rs.getString("password"));
         user.setNamaLengkap(rs.getString("nama_lengkap"));
-        user.setJabatan(rs.getString("jabatan"));
         user.setRole(rs.getString("role"));
         user.setStatus(rs.getString("status"));
         user.setCreatedAt(rs.getDate("created_at"));
         return user;
     }
 
-     public List<User> getAll() {
+    public List<User> getAll() {
         List<User> list = new ArrayList<>();
         String sql = "SELECT * FROM user ORDER BY id_user ASC";
-        try (Statement st = conn.createStatement();
-             ResultSet rs = st.executeQuery(sql)) {
+        try (Statement st = conn.createStatement(); ResultSet rs = st.executeQuery(sql)) {
             while (rs.next()) {
                 list.add(mapResultSet(rs));
             }
@@ -68,5 +228,25 @@ public class UserDAO {
             System.err.println("Error getAll user: " + e.getMessage());
         }
         return list;
+    }
+
+    public boolean delete(String namaLengkap) {
+
+        String sql = "DELETE FROM `user` WHERE nama_lengkap = ?";
+
+        try (PreparedStatement ps
+                = conn.prepareStatement(sql)) {
+
+            ps.setString(1, namaLengkap);
+
+            return ps.executeUpdate() > 0;
+
+        } catch (SQLException e) {
+
+            System.err.println("Error Delete : "
+                    + e.getMessage());
+        }
+
+        return false;
     }
 }

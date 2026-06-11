@@ -66,15 +66,59 @@ public class KriteriaDAO {
         return k;
     }
 
+    public Kriteria getByKode(String kode) {
+
+        Kriteria k = null;
+
+        String sql
+                = "SELECT * FROM kriteria "
+                + "WHERE kode_kriteria = ?";
+
+        try (PreparedStatement ps
+                = conn.prepareStatement(sql)) {
+
+            ps.setString(1, kode);
+
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+
+                k = new Kriteria();
+
+                k.setIdKriteria(
+                        rs.getInt("id_kriteria"));
+
+                k.setKodeKriteria(
+                        rs.getString("kode_kriteria"));
+
+                k.setNamaKriteria(
+                        rs.getString("nama_kriteria"));
+
+                k.setDeskripsi(
+                        rs.getString("deskripsi"));
+
+                k.setBobotAkhir(
+                        rs.getDouble("bobot_akhir"));
+            }
+
+        } catch (SQLException e) {
+
+            System.err.println(
+                    "Error getByKode : "
+                    + e.getMessage());
+        }
+
+        return k;
+    }
+
     //kode untuk menambahkan data
     public boolean insert(Kriteria k) {
-        String sql = "INSERT INTO kriteria (kode_kriteria, nama_kriteria, deskripsi, status) "
-                + "VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO kriteria (kode_kriteria, nama_kriteria, deskripsi) "
+                + "VALUES (?, ?, ?)";
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, k.getKodeKriteria());
             ps.setString(2, k.getNamaKriteria());
             ps.setString(3, k.getDeskripsi());
-            ps.setString(4, k.getStatus());
             return ps.executeUpdate() > 0;
         } catch (SQLException e) {
             System.err.println("Error insert kriteria: " + e.getMessage());
@@ -84,17 +128,28 @@ public class KriteriaDAO {
 
     //kode untuk update data
     public boolean update(Kriteria k) {
-        String sql = "UPDATE kriteria SET kode_kriteria = ?, nama_kriteria = ?, "
-                + "deskripsi = ?, status = ? WHERE id_kriteria = ?";
+
+        String sql = "UPDATE kriteria SET "
+                + "nama_kriteria = ?, "
+                + "deskripsi = ?, "
+                + "bobot_akhir = ? "
+                + "WHERE kode_kriteria = ?";
+
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setString(1, k.getKodeKriteria());
-            ps.setString(2, k.getNamaKriteria());
-            ps.setString(3, k.getDeskripsi());
-            ps.setString(4, k.getStatus());
-            ps.setInt(5, k.getIdKriteria());
+
+            ps.setString(1, k.getNamaKriteria());
+            ps.setString(2, k.getDeskripsi());
+            ps.setDouble(3, k.getBobotAkhir());
+            ps.setString(4, k.getKodeKriteria());
+
             return ps.executeUpdate() > 0;
+
         } catch (SQLException e) {
-            System.err.println("Error update kriteria: " + e.getMessage());
+
+            System.err.println(
+                    "Error update kriteria: "
+                    + e.getMessage());
+
             return false;
         }
     }
@@ -113,10 +168,10 @@ public class KriteriaDAO {
     }
     // kode untuk delete data
 
-    public boolean delete(int idKriteria) {
-        String sql = "DELETE FROM kriteria WHERE id_kriteria = ?";
+    public boolean delete(String KodeKriteria) {
+        String sql = "DELETE FROM kriteria WHERE kode_kriteria = ?";
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setInt(1, idKriteria);
+            ps.setString(1, KodeKriteria);
             return ps.executeUpdate() > 0;
         } catch (SQLException e) {
             System.err.println("Error delete kriteria: " + e.getMessage());
@@ -159,7 +214,6 @@ public class KriteriaDAO {
         k.setNamaKriteria(rs.getString("nama_kriteria"));
         k.setDeskripsi(rs.getString("deskripsi"));
         k.setBobotAkhir(rs.getDouble("bobot_akhir"));
-        k.setStatus(rs.getString("status"));
         k.setCreatedAt(rs.getDate("created_at"));
         return k;
     }

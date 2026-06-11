@@ -4,6 +4,11 @@
  */
 package view;
 
+import dao.KriteriaDAO;
+import java.sql.PreparedStatement;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author ryumaaa
@@ -15,6 +20,58 @@ public class Kriteria extends javax.swing.JPanel {
      */
     public Kriteria() {
         initComponents();
+        tkodekriteria.disable();
+        generateKodeKriteria();
+        loadTableKriteria();
+    }
+
+    private void generateKodeKriteria() {
+
+        KriteriaDAO dao = new KriteriaDAO();
+
+        String kode = dao.generateKode();
+
+        tkodekriteria.setText(kode);
+    }
+
+    private void resetForm() {
+
+        tkodekriteria.setText("");
+        tnamakriteria.setText("");
+        tdeskripsi.setText("");
+        tbobotkriteria.setText("");
+
+        generateKodeKriteria();
+
+        tnamakriteria.requestFocus();
+    }
+
+    private void loadTableKriteria() {
+
+        DefaultTableModel model
+                = new DefaultTableModel();
+
+        model.addColumn("ID");
+        model.addColumn("Kode");
+        model.addColumn("Nama Kriteria");
+        model.addColumn("Deskripsi");
+        model.addColumn("Bobot");
+
+        KriteriaDAO dao
+                = new KriteriaDAO();
+
+        for (model.Kriteria k : dao.getAll()) {
+
+            model.addRow(new Object[]{
+                k.getIdKriteria(),
+                k.getKodeKriteria(),
+                k.getNamaKriteria(),
+                k.getDeskripsi(),
+                k.getBobotAkhir()
+            });
+        }
+
+        tblKriteria.setModel(model);
     }
 
     /**
@@ -31,12 +88,20 @@ public class Kriteria extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        kodekriteria = new javax.swing.JTextField();
-        namakriteria = new javax.swing.JTextField();
-        deskripsi = new javax.swing.JTextField();
-        bobotkriteria = new javax.swing.JTextField();
-        status = new javax.swing.JComboBox<>();
+        tkodekriteria = new javax.swing.JTextField();
+        tnamakriteria = new javax.swing.JTextField();
+        tdeskripsi = new javax.swing.JTextField();
+        tbobotkriteria = new javax.swing.JTextField();
+        btnsimpan = new javax.swing.JButton();
+        btnedit = new javax.swing.JButton();
+        btnhapus = new javax.swing.JButton();
+        btnbatal = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tblKriteria = new javax.swing.JTable();
+        jSeparator1 = new javax.swing.JSeparator();
+        jSeparator2 = new javax.swing.JSeparator();
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -52,45 +117,114 @@ public class Kriteria extends javax.swing.JPanel {
         jLabel4.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jLabel4.setText("Bobot Kriteria");
 
-        jLabel5.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jLabel5.setText("Status");
-
-        kodekriteria.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        kodekriteria.addActionListener(new java.awt.event.ActionListener() {
+        tkodekriteria.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        tkodekriteria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                kodekriteriaActionPerformed(evt);
+                tkodekriteriaActionPerformed(evt);
             }
         });
 
-        namakriteria.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        tnamakriteria.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
 
-        deskripsi.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        tdeskripsi.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
 
-        bobotkriteria.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        tbobotkriteria.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
 
-        status.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        status.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        btnsimpan.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        btnsimpan.setText("Simpan");
+        btnsimpan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnsimpanActionPerformed(evt);
+            }
+        });
+
+        btnedit.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        btnedit.setText("Edit");
+        btnedit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btneditActionPerformed(evt);
+            }
+        });
+
+        btnhapus.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        btnhapus.setText("Hapus");
+        btnhapus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnhapusActionPerformed(evt);
+            }
+        });
+
+        btnbatal.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        btnbatal.setText("Batal");
+        btnbatal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnbatalActionPerformed(evt);
+            }
+        });
+
+        jLabel6.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        jLabel6.setText("Cari");
+
+        jTextField1.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+
+        tblKriteria.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        tblKriteria.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        tblKriteria.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblKriteriaMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(tblKriteria);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(36, 36, 36)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel5))
-                .addGap(65, 65, 65)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(kodekriteria)
-                    .addComponent(namakriteria)
-                    .addComponent(deskripsi)
-                    .addComponent(bobotkriteria)
-                    .addComponent(status, 0, 479, Short.MAX_VALUE))
-                .addContainerGap(249, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 1061, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addGap(36, 36, 36)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addGap(13, 13, 13)
+                                .addComponent(jTextField1))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel4))
+                                .addGap(65, 65, 65)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jSeparator2)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(btnsimpan, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(btnedit, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(btnhapus, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(btnbatal, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(tbobotkriteria, javax.swing.GroupLayout.DEFAULT_SIZE, 882, Short.MAX_VALUE)
+                                    .addComponent(tkodekriteria)
+                                    .addComponent(tnamakriteria)
+                                    .addComponent(tdeskripsi)
+                                    .addComponent(jSeparator1))))))
+                .addGap(60, 60, 60))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -98,58 +232,230 @@ public class Kriteria extends javax.swing.JPanel {
                 .addGap(26, 26, 26)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(kodekriteria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tkodekriteria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(21, 21, 21)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(namakriteria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tnamakriteria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(deskripsi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tdeskripsi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(bobotkriteria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tbobotkriteria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
                 .addGap(18, 18, 18)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(2, 2, 2)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(status, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(511, Short.MAX_VALUE))
+                    .addComponent(btnsimpan)
+                    .addComponent(btnedit)
+                    .addComponent(btnhapus)
+                    .addComponent(btnbatal))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(5, 5, 5)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel6)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(8, 8, 8)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(131, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void kodekriteriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kodekriteriaActionPerformed
+    private void tkodekriteriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tkodekriteriaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_kodekriteriaActionPerformed
+    }//GEN-LAST:event_tkodekriteriaActionPerformed
+
+    private void btnsimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsimpanActionPerformed
+        if (tkodekriteria.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this,
+                    "Kode Teknisi tidak boleh kosong");
+            return;
+        }
+
+        if (tnamakriteria.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this,
+                    "Nama Teknisi tidak boleh kosong");
+            return;
+        }
+
+        model.Kriteria t = new model.Kriteria();
+
+        t.setKodeKriteria(tkodekriteria.getText().trim());
+        t.setNamaKriteria(tnamakriteria.getText().trim());
+        t.setDeskripsi(tdeskripsi.getText().trim());
+        t.setBobotAkhir(Double.parseDouble(tbobotkriteria.getText().trim()));
+
+        KriteriaDAO dao = new KriteriaDAO();
+
+        if (dao.insert(t)) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Data Kriteria Berhasil Disimpan");
+
+            resetForm();
+            loadTableKriteria();
+            generateKodeKriteria();
+        } else {
+
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Data Kriteria Gagal Disimpan");
+        }
+    }//GEN-LAST:event_btnsimpanActionPerformed
+
+    private void btnbatalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbatalActionPerformed
+        resetForm();
+        btnsimpan.setVisible(true);
+    }//GEN-LAST:event_btnbatalActionPerformed
+
+    private void btnhapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnhapusActionPerformed
+        String kode= tkodekriteria.getText().trim();
+
+        if (kode.isEmpty()) {
+
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Pilih data terlebih dahulu");
+
+            return;
+        }
+        
+        int konfirmasi
+                = JOptionPane.showConfirmDialog(
+                        this,
+                        "Yakin ingin menghapus Kriteria Dengan Kode "
+                        + kode + "?",
+                        "Konfirmasi Hapus",
+                        JOptionPane.YES_NO_OPTION);
+
+        if (konfirmasi == JOptionPane.YES_OPTION) {
+
+            KriteriaDAO dao = new KriteriaDAO();
+
+            if (dao.delete(kode)) {
+
+                JOptionPane.showMessageDialog(
+                        this,
+                        "Data berhasil dihapus");
+
+                loadTableKriteria();
+
+                resetForm();
+
+            } else {
+
+                JOptionPane.showMessageDialog(
+                        this,
+                        "Data gagal dihapus");
+            }
+        }
+    }//GEN-LAST:event_btnhapusActionPerformed
+
+    private void btneditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneditActionPerformed
+        if (tkodekriteria.getText().trim().isEmpty()) {
+
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Pilih data terlebih dahulu");
+
+            return;
+        }
+
+        model.Kriteria k = new model.Kriteria();
+
+        k.setKodeKriteria(
+                tkodekriteria.getText().trim());
+
+        k.setNamaKriteria(
+                tnamakriteria.getText().trim());
+
+        k.setDeskripsi(
+                tdeskripsi.getText().trim());
+        k.setBobotAkhir(
+                Double.parseDouble(
+                        tbobotkriteria.getText().trim()));
+
+        KriteriaDAO dao = new KriteriaDAO();
+
+        if (dao.update(k)) {
+
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Data berhasil diubah");
+
+            loadTableKriteria();
+            resetForm();
+
+        } else {
+
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Data gagal diubah");
+        }
+    }//GEN-LAST:event_btneditActionPerformed
+
+    private void tblKriteriaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblKriteriaMouseClicked
+        int row = tblKriteria.getSelectedRow();
+
+        if (row == -1) {
+            return;
+        }
+
+        String kode
+                = tblKriteria.getValueAt(row, 1)
+                        .toString();
+
+        KriteriaDAO dao
+                = new KriteriaDAO();
+
+        model.Kriteria k
+                = dao.getByKode(kode);
+
+        if (k != null) {
+
+            tkodekriteria.setText(k.getKodeKriteria());
+            tnamakriteria.setText(k.getNamaKriteria());
+            tdeskripsi.setText(k.getDeskripsi());
+            tbobotkriteria.setText(String.valueOf(k.getBobotAkhir()));
+        }
+        btnsimpan.setVisible(false);
+    }//GEN-LAST:event_tblKriteriaMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField bobotkriteria;
-    private javax.swing.JTextField deskripsi;
+    private javax.swing.JButton btnbatal;
+    private javax.swing.JButton btnedit;
+    private javax.swing.JButton btnhapus;
+    private javax.swing.JButton btnsimpan;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField kodekriteria;
-    private javax.swing.JTextField namakriteria;
-    private javax.swing.JComboBox<String> status;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTable tblKriteria;
+    private javax.swing.JTextField tbobotkriteria;
+    private javax.swing.JTextField tdeskripsi;
+    private javax.swing.JTextField tkodekriteria;
+    private javax.swing.JTextField tnamakriteria;
     // End of variables declaration//GEN-END:variables
 }

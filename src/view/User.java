@@ -4,17 +4,160 @@
  */
 package view;
 
+import dao.UserDAO;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author USER
  */
 public class User extends javax.swing.JPanel {
 
+    int x, y;
+    private Connection conn;
+    private Statement st;
+    private ResultSet rslogin;
+    private String sql = "";
+    public static String nmlengkap;
+    private int selectedUserId = 0;
+
     /**
      * Creates new form User
      */
     public User() {
         initComponents();
+        loadTableUser();
+    }
+
+    private void resetForm() {
+
+        tusername.setText("");
+        tpassword.setText("");
+        tnamalengkap.setText("");
+
+        trole.setSelectedIndex(0);
+
+        tusername.requestFocus();
+    }
+
+    private void loadTableUser() {
+
+        DefaultTableModel model = new DefaultTableModel();
+
+        model.addColumn("ID");
+        model.addColumn("Username");
+        model.addColumn("Nama Lengkap");
+        model.addColumn("Role");
+        model.addColumn("Status");
+
+        UserDAO dao = new UserDAO();
+
+        for (model.User user : dao.getAll()) {
+
+            model.addRow(new Object[]{
+                user.getIdUser(),
+                user.getUsername(),
+                user.getNamaLengkap(),
+                user.getRole()
+            });
+        }
+
+        tblUser.setModel(model);
+    }
+
+    private void cariUser(String keyword) {
+
+        DefaultTableModel model = new DefaultTableModel();
+
+        model.addColumn("ID");
+        model.addColumn("Username");
+        model.addColumn("Nama Lengkap");
+        model.addColumn("Role");
+        model.addColumn("Status");
+
+        UserDAO dao = new UserDAO();
+
+        for (model.User user : dao.search(keyword)) {
+
+            model.addRow(new Object[]{
+                user.getIdUser(),
+                user.getUsername(),
+                user.getNamaLengkap(),
+                user.getRole(),
+                user.getStatus()
+            });
+        }
+
+        tblUser.setModel(model);
+    }
+
+    private void prosesRegister() {
+
+        String namaLengkap = tnamalengkap.getText().trim();
+        String username = tusername.getText().trim();
+        String password = new String(tpassword.getPassword()).trim();
+        String role = trole.getSelectedItem().toString();
+
+        if (namaLengkap.isEmpty()) {
+
+            JOptionPane.showMessageDialog(this,
+                    "Nama Lengkap tidak boleh kosong");
+
+            return;
+        }
+
+        if (username.isEmpty()) {
+
+            JOptionPane.showMessageDialog(this,
+                    "Username tidak boleh kosong");
+
+            return;
+        }
+
+        if (password.isEmpty()) {
+
+            JOptionPane.showMessageDialog(this,
+                    "Password tidak boleh kosong");
+
+            return;
+        }
+
+        UserDAO dao = new UserDAO();
+
+        if (dao.cekUsername(username)) {
+
+            JOptionPane.showMessageDialog(this,
+                    "Username sudah digunakan");
+
+            return;
+        }
+
+        model.User user = new model.User();
+
+        user.setNamaLengkap(namaLengkap);
+        user.setUsername(username);
+        user.setPassword(password);
+        user.setRole(role);
+
+        boolean berhasil = dao.register(user);
+
+        if (berhasil) {
+
+            JOptionPane.showMessageDialog(this,
+                    "Registrasi berhasil");
+
+            loadTableUser();
+
+        } else {
+
+            JOptionPane.showMessageDialog(this,
+                    "Registrasi gagal");
+
+        }
     }
 
     /**
@@ -26,19 +169,376 @@ public class User extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        tusername = new javax.swing.JTextField();
+        tnamalengkap = new javax.swing.JTextField();
+        trole = new javax.swing.JComboBox<>();
+        btnsimpan = new javax.swing.JButton();
+        btnedit = new javax.swing.JButton();
+        btnhapus = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tblUser = new javax.swing.JTable();
+        tcari = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
+        jSeparator2 = new javax.swing.JSeparator();
+        tpassword = new javax.swing.JPasswordField();
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel1.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jLabel1.setText("Username");
+
+        jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jLabel2.setText("Password");
+
+        jLabel3.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jLabel3.setText("Nama Lengkap");
+
+        jLabel4.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jLabel4.setText("Role");
+
+        tusername.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+
+        tnamalengkap.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+
+        trole.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        trole.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "User" }));
+
+        btnsimpan.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        btnsimpan.setText("Simpan");
+        btnsimpan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnsimpanActionPerformed(evt);
+            }
+        });
+
+        btnedit.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        btnedit.setText("Edit");
+        btnedit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btneditActionPerformed(evt);
+            }
+        });
+
+        btnhapus.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        btnhapus.setText("Hapus");
+        btnhapus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnhapusActionPerformed(evt);
+            }
+        });
+
+        jButton4.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        jButton4.setText("Batal");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
+        tblUser.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        tblUser.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        tblUser.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblUserMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(tblUser);
+
+        tcari.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        tcari.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tcariKeyReleased(evt);
+            }
+        });
+
+        jLabel6.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        jLabel6.setText("Cari");
+
+        tpassword.setPreferredSize(new java.awt.Dimension(54, 20));
+        tpassword.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                tpasswordFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tpasswordFocusLost(evt);
+            }
+        });
+        tpassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tpasswordActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(39, 39, 39)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1)
+                                    .addComponent(jLabel2))
+                                .addGap(88, 88, 88)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(tusername, javax.swing.GroupLayout.DEFAULT_SIZE, 883, Short.MAX_VALUE)
+                                    .addComponent(tpassword, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 129, Short.MAX_VALUE)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(tnamalengkap, javax.swing.GroupLayout.PREFERRED_SIZE, 883, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(btnsimpan, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(btnedit, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(btnhapus, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(trole, javax.swing.GroupLayout.Alignment.LEADING, 0, 881, Short.MAX_VALUE)))))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 1051, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(tcari, javax.swing.GroupLayout.PREFERRED_SIZE, 922, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(76, 76, 76))))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(35, 35, 35)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(tusername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tpassword, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(tnamalengkap, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4)
+                    .addComponent(trole, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(2, 2, 2)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnsimpan)
+                    .addComponent(btnedit)
+                    .addComponent(btnhapus)
+                    .addComponent(jButton4))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel6)
+                    .addComponent(tcari, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(8, 8, 8)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(35, 35, 35))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void tpasswordFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tpasswordFocusGained
+
+    }//GEN-LAST:event_tpasswordFocusGained
+
+    private void tpasswordFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tpasswordFocusLost
+
+    }//GEN-LAST:event_tpasswordFocusLost
+
+    private void tpasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tpasswordActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tpasswordActionPerformed
+
+    private void btnsimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsimpanActionPerformed
+        prosesRegister();
+    }//GEN-LAST:event_btnsimpanActionPerformed
+
+    private void tblUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblUserMouseClicked
+        // TODO add your handling code here:
+        int row = tblUser.getSelectedRow();
+
+//        selectedUserId = Integer.parseInt(
+//                tblUser.getValueAt(row, 0).toString());
+        tusername.setText(
+                tblUser.getValueAt(row, 1).toString());
+
+        tnamalengkap.setText(
+                tblUser.getValueAt(row, 2).toString());
+
+        trole.setSelectedItem(
+                tblUser.getValueAt(row, 3).toString());
+
+        btnsimpan.setVisible(false);
+    }//GEN-LAST:event_tblUserMouseClicked
+
+    private void btneditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneditActionPerformed
+        model.User user = new model.User();
+
+        user.setUsername(tusername.getText().trim());
+
+        user.setNamaLengkap(tnamalengkap.getText().trim());
+
+        user.setRole(trole.getSelectedItem().toString());
+
+        String password
+                = new String(tpassword.getPassword()).trim();
+        System.out.println("Nama = " + tnamalengkap.getText());
+        System.out.println("Role = " + trole.getSelectedItem());
+        UserDAO dao = new UserDAO();
+
+        boolean berhasil;
+
+        if (password.isEmpty()) {
+
+            berhasil = dao.updateTanpaPassword(user);
+
+        } else {
+
+            user.setPassword(password);
+
+            berhasil = dao.updateDenganPassword(user);
+        }
+
+        if (berhasil) {
+
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Data berhasil diperbarui");
+
+            loadTableUser();
+
+        } else {
+
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Data gagal diperbarui");
+        }
+    }//GEN-LAST:event_btneditActionPerformed
+
+    private void btnhapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnhapusActionPerformed
+        String nama
+                = tnamalengkap.getText().trim();
+
+        if (nama.isEmpty()) {
+
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Pilih data terlebih dahulu");
+
+            return;
+        }
+
+        int konfirmasi
+                = JOptionPane.showConfirmDialog(
+                        this,
+                        "Yakin ingin menghapus user "
+                        + nama + "?",
+                        "Konfirmasi Hapus",
+                        JOptionPane.YES_NO_OPTION);
+
+        if (konfirmasi == JOptionPane.YES_OPTION) {
+
+            UserDAO dao = new UserDAO();
+
+            if (dao.delete(nama)) {
+
+                JOptionPane.showMessageDialog(
+                        this,
+                        "Data berhasil dihapus");
+
+                loadTableUser();
+
+                resetForm();
+
+            } else {
+
+                JOptionPane.showMessageDialog(
+                        this,
+                        "Data gagal dihapus");
+            }
+        }
+    }//GEN-LAST:event_btnhapusActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        resetForm();
+        btnsimpan.setVisible(true);
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void tcariKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tcariKeyReleased
+        // TODO add your handling code here:
+        String keyword = tcari.getText().trim();
+
+        cariUser(keyword);
+    }//GEN-LAST:event_tcariKeyReleased
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnedit;
+    private javax.swing.JButton btnhapus;
+    private javax.swing.JButton btnsimpan;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JTable tblUser;
+    private javax.swing.JTextField tcari;
+    private javax.swing.JTextField tnamalengkap;
+    private javax.swing.JPasswordField tpassword;
+    private javax.swing.JComboBox<String> trole;
+    private javax.swing.JTextField tusername;
     // End of variables declaration//GEN-END:variables
 }
