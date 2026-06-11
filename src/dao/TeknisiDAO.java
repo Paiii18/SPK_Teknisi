@@ -1,4 +1,4 @@
-     /*
+/*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
@@ -109,26 +109,81 @@ public class TeknisiDAO {
         }
     }
 
+    public Teknisi getByKode(String kode) {
+
+        Teknisi t = null;
+
+        String sql
+                = "SELECT * FROM teknisi "
+                + "WHERE kode_teknisi = ?";
+
+        try (PreparedStatement ps
+                = conn.prepareStatement(sql)) {
+
+            ps.setString(1, kode);
+
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+
+                t = new Teknisi();
+
+                t.setIdTeknisi(rs.getInt("id_teknisi"));
+                t.setKodeTeknisi(rs.getString("kode_teknisi"));
+                t.setNamaTeknisi(rs.getString("nama_teknisi"));
+                t.setJenisKelamin(rs.getString("jenis_kelamin"));
+                t.setTempatLahir(rs.getString("tempat_lahir"));
+                t.setTanggalLahir(rs.getDate("tanggal_lahir"));
+                t.setAlamat(rs.getString("alamat"));
+                t.setNoTelepon(rs.getString("no_telepon"));
+                t.setEmail(rs.getString("email"));
+                t.setDivisi(rs.getString("divisi"));
+                t.setJabatan(rs.getString("jabatan"));
+                t.setTanggalMasuk(rs.getDate("tanggal_masuk"));
+                t.setStatus(rs.getString("status"));
+            }
+
+        } catch (SQLException e) {
+
+            System.err.println(
+                    "Error getByKode : "
+                    + e.getMessage());
+        }
+
+        return t;
+    }
+
     // kode untuk update data
     public boolean update(Teknisi t) {
-        String sql = "UPDATE teknisi SET kode_teknisi = ?, nama_teknisi = ?, jenis_kelamin = ?, "
+        String sql = "UPDATE teknisi SET  nama_teknisi = ?, jenis_kelamin = ?, "
                 + "tempat_lahir = ?, tanggal_lahir = ?, alamat = ?, no_telepon = ?, email = ?, "
                 + "divisi = ?, jabatan = ?, tanggal_masuk = ?, status = ? "
-                + "WHERE id_teknisi = ?";
+                + "WHERE kode_teknisi = ?";
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setString(1, t.getKodeTeknisi());
-            ps.setString(2, t.getNamaTeknisi());
-            ps.setString(3, t.getJenisKelamin());
-            ps.setString(4, t.getTempatLahir());
-            ps.setDate(5, t.getTanggalLahir() != null ? new java.sql.Date(t.getTanggalLahir().getTime()) : null);
-            ps.setString(6, t.getAlamat());
-            ps.setString(7, t.getNoTelepon());
-            ps.setString(8, t.getEmail());
-            ps.setString(9, t.getDivisi());
-            ps.setString(10, t.getJabatan());
-            ps.setDate(11, t.getTanggalMasuk() != null ? new java.sql.Date(t.getTanggalMasuk().getTime()) : null);
-            ps.setString(12, t.getStatus());
-            ps.setInt(13, t.getIdTeknisi());
+            ps.setString(1, t.getNamaTeknisi());
+            ps.setString(2, t.getJenisKelamin());
+            ps.setString(3, t.getTempatLahir());
+
+            ps.setDate(4,
+                    t.getTanggalLahir() != null
+                    ? new java.sql.Date(t.getTanggalLahir().getTime())
+                    : null);
+
+            ps.setString(5, t.getAlamat());
+            ps.setString(6, t.getNoTelepon());
+            ps.setString(7, t.getEmail());
+            ps.setString(8, t.getDivisi());
+            ps.setString(9, t.getJabatan());
+
+            ps.setDate(10,
+                    t.getTanggalMasuk() != null
+                    ? new java.sql.Date(t.getTanggalMasuk().getTime())
+                    : null);
+
+            ps.setString(11, t.getStatus());
+
+            ps.setString(12, t.getKodeTeknisi());
+
             return ps.executeUpdate() > 0;
         } catch (SQLException e) {
             System.err.println("Error update teknisi: " + e.getMessage());
@@ -137,10 +192,10 @@ public class TeknisiDAO {
     }
 
     // kode untuk delete data
-    public boolean delete(int idTeknisi) {
-        String sql = "DELETE FROM teknisi WHERE id_teknisi = ?";
+    public boolean delete(String kodeTeknisi) {
+        String sql = "DELETE FROM teknisi WHERE kode_teknisi = ?";
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setInt(1, idTeknisi);
+            ps.setString(1, kodeTeknisi);
             return ps.executeUpdate() > 0;
         } catch (SQLException e) {
             System.err.println("Error delete teknisi: " + e.getMessage());
