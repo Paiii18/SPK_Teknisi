@@ -17,12 +17,12 @@ public class Report extends javax.swing.JPanel {
      */
     public Report() {
         initComponents();
-        jButton3.setText("Hasil Perhitungan AHP");
-        jButton4.setText("Perangkingan Teknisi Terbaik");
+//        btnperangkingan.setText("Hasil Perhitungan AHP");
+//        btnhasilahp.setText("Perangkingan Teknisi Terbaik");
 
-        jButton2.addActionListener(e -> ReportGenerator.showReport("/report/laporan_kriteria.jrxml"));
-        jButton3.addActionListener(e -> ReportGenerator.showReport("/report/laporan_hasil_ahp.jrxml"));
-        jButton4.addActionListener(e -> ReportGenerator.showReport("/report/laporan_perankingan.jrxml"));
+        btnkriteria.addActionListener(e -> ReportGenerator.showReport("/report/report_kriteria.jrxml"));
+        btnperangkingan.addActionListener(e -> ReportGenerator.showReport("/report/report_perangkingan.jrxml"));
+        btnhasilahp.addActionListener(e -> ReportGenerator.showReport("/report/report_hasilahp.jrxml"));
     }
 
     /**
@@ -35,34 +35,39 @@ public class Report extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        btnteknisi = new javax.swing.JButton();
+        btnkriteria = new javax.swing.JButton();
+        btnperangkingan = new javax.swing.JButton();
+        btnhasilahp = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jButton1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/icons8-pdf-50.png"))); // NOI18N
-        jButton1.setText("Data Teknisi");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnteknisi.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        btnteknisi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/icons8-pdf-50.png"))); // NOI18N
+        btnteknisi.setText("Data Teknisi");
+        btnteknisi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnteknisiActionPerformed(evt);
             }
         });
 
-        jButton2.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/icons8-pdf-50.png"))); // NOI18N
-        jButton2.setText("Data Kriteria");
+        btnkriteria.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        btnkriteria.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/icons8-pdf-50.png"))); // NOI18N
+        btnkriteria.setText("Data Kriteria");
 
-        jButton3.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/icons8-pdf-50.png"))); // NOI18N
-        jButton3.setText("jButton1");
+        btnperangkingan.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        btnperangkingan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/icons8-pdf-50.png"))); // NOI18N
+        btnperangkingan.setText("Perangkingan");
 
-        jButton4.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/icons8-pdf-50.png"))); // NOI18N
-        jButton4.setText("jButton1");
+        btnhasilahp.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        btnhasilahp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/icons8-pdf-50.png"))); // NOI18N
+        btnhasilahp.setText("Hasil Perhitungan AHP");
+        btnhasilahp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnhasilahpActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -72,34 +77,35 @@ public class Report extends javax.swing.JPanel {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(130, 130, 130)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 278, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 281, Short.MAX_VALUE)))
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 737, Short.MAX_VALUE)
                 .addGap(164, 164, 164))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnteknisi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnperangkingan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnkriteria, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnhasilahp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(15, 15, 15))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(59, 59, 59)
                 .addComponent(jLabel1)
-                .addGap(30, 30, 30)
+                .addGap(46, 46, 46)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnteknisi, javax.swing.GroupLayout.DEFAULT_SIZE, 167, Short.MAX_VALUE)
+                    .addComponent(btnkriteria, javax.swing.GroupLayout.DEFAULT_SIZE, 167, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(125, 125, 125))
+                    .addComponent(btnperangkingan, javax.swing.GroupLayout.DEFAULT_SIZE, 167, Short.MAX_VALUE)
+                    .addComponent(btnhasilahp, javax.swing.GroupLayout.DEFAULT_SIZE, 167, Short.MAX_VALUE))
+                .addGap(109, 109, 109))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -114,16 +120,20 @@ public class Report extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnteknisiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnteknisiActionPerformed
         ReportGenerator.showReport("/report/laporan_teknisi.jrxml");
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnteknisiActionPerformed
+
+    private void btnhasilahpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnhasilahpActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnhasilahpActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton btnhasilahp;
+    private javax.swing.JButton btnkriteria;
+    private javax.swing.JButton btnperangkingan;
+    private javax.swing.JButton btnteknisi;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
