@@ -121,7 +121,7 @@ public class Report extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnteknisiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnteknisiActionPerformed
-        ReportGenerator.showReport("/report/laporan_teknisi.jrxml");
+        ReportGenerator.showReport("/report/report_teknisi.jrxml");
     }//GEN-LAST:event_btnteknisiActionPerformed
 
     private void btnhasilahpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnhasilahpActionPerformed

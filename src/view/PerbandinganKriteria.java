@@ -10,7 +10,11 @@ import model.Kriteria;
 import model.MatriksPerbandingan;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
@@ -43,6 +47,15 @@ public class PerbandinganKriteria extends javax.swing.JPanel {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tableClicked();
             }
+        });
+
+        jTextField2.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) { cariData(); }
+            @Override
+            public void removeUpdate(DocumentEvent e) { cariData(); }
+            @Override
+            public void changedUpdate(DocumentEvent e) { cariData(); }
         });
     }
 
@@ -86,6 +99,20 @@ public class PerbandinganKriteria extends javax.swing.JPanel {
         }
 
         jTable1.setModel(model);
+        TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(model);
+        jTable1.setRowSorter(sorter);
+    }
+
+    private void cariData() {
+        String keyword = jTextField2.getText().trim();
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(model);
+        jTable1.setRowSorter(sorter);
+        if (keyword.isEmpty()) {
+            sorter.setRowFilter(null);
+        } else {
+            sorter.setRowFilter(RowFilter.regexFilter("(?i)" + java.util.regex.Pattern.quote(keyword)));
+        }
     }
 
     private void simpanData() {
@@ -176,8 +203,10 @@ public class PerbandinganKriteria extends javax.swing.JPanel {
     }
 
     private void tableClicked() {
-        int row = jTable1.getSelectedRow();
-        if (row == -1) return;
+        int viewRow = jTable1.getSelectedRow();
+        if (viewRow == -1) return;
+
+        int row = jTable1.convertRowIndexToModel(viewRow);
 
         MatriksDAO dao = new MatriksDAO();
         List<MatriksPerbandingan> list = dao.getAll();
@@ -197,7 +226,7 @@ public class PerbandinganKriteria extends javax.swing.JPanel {
             }
 
             jTextField1.setText(String.valueOf(m.getNilaiPerbandingan()));
-            username.setText(jTable1.getValueAt(row, 0).toString());
+            username.setText(jTable1.getValueAt(viewRow, 0).toString());
 
             jButton1.setVisible(false);
         }

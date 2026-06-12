@@ -7,7 +7,11 @@ package view;
 import dao.KriteriaDAO;
 import java.sql.PreparedStatement;
 import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
@@ -23,6 +27,15 @@ public class Kriteria extends javax.swing.JPanel {
         tkodekriteria.disable();
         generateKodeKriteria();
         loadTableKriteria();
+
+        jTextField1.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) { cariData(); }
+            @Override
+            public void removeUpdate(DocumentEvent e) { cariData(); }
+            @Override
+            public void changedUpdate(DocumentEvent e) { cariData(); }
+        });
     }
 
     private void generateKodeKriteria() {
@@ -72,6 +85,20 @@ public class Kriteria extends javax.swing.JPanel {
         }
 
         tblKriteria.setModel(model);
+        TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(model);
+        tblKriteria.setRowSorter(sorter);
+    }
+
+    private void cariData() {
+        String keyword = jTextField1.getText().trim();
+        DefaultTableModel model = (DefaultTableModel) tblKriteria.getModel();
+        TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(model);
+        tblKriteria.setRowSorter(sorter);
+        if (keyword.isEmpty()) {
+            sorter.setRowFilter(null);
+        } else {
+            sorter.setRowFilter(RowFilter.regexFilter("(?i)" + java.util.regex.Pattern.quote(keyword)));
+        }
     }
 
     /**

@@ -301,6 +301,11 @@ public class Teknisi extends javax.swing.JPanel {
         jLabel6.setText("Cari");
 
         tcari.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        tcari.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tcariActionPerformed(evt);
+            }
+        });
         tcari.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 tcariKeyPressed(evt);
@@ -777,6 +782,10 @@ public class Teknisi extends javax.swing.JPanel {
             cariTeknisi(keyword);
         }
     }//GEN-LAST:event_tcariKeyPressed
+
+    private void tcariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tcariActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tcariActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
