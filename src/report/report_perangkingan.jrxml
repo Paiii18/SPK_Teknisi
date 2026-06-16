@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ca45f457-478f-4d06-9b55-45814679f024">
-	<property name="ireport.zoom" value="1.9487171000000014"/>
+	<property name="ireport.zoom" value="1.4641000000000008"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="8"/>
 	<queryString>
 		<![CDATA[SELECT hp.ranking, t.kode_teknisi, t.nama_teknisi,
                    hp.nilai_akhir, hp.keterangan, hp.tanggal_ranking
@@ -40,16 +40,23 @@
 				</textElement>
 				<text><![CDATA[PT. Sukses Abadi Korporindo]]></text>
 			</staticText>
-			<staticText>
-				<reportElement x="1" y="31" width="555" height="47" uuid="c370915c-ba94-4d22-99e2-3ffb3cc80924"/>
-				<textElement textAlignment="Center">
-					<font fontName="Times New Roman" size="16"/>
-				</textElement>
-				<text><![CDATA[Jl. Mangga Dua Raya, RT.17/RW.11, Mangga Dua Sel., Kecamatan Sawah Besar, Kota Jakarta Pusat, Daerah Khusus Ibukota Jakarta 10730]]></text>
-			</staticText>
 			<line>
 				<reportElement x="1" y="78" width="554" height="1" uuid="8c1c72d2-2d1f-41a5-9446-e5614c625cbe"/>
 			</line>
+			<staticText>
+				<reportElement x="1" y="32" width="555" height="31" uuid="b40a4ced-0d57-42c3-91a0-c4a651c2d28c"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<text><![CDATA[Jl. Mangga Dua Raya, RT.17/RW.11, Mangga Dua Sel., Kecamatan Sawah Besar, Kota Jakarta Pusat, Daerah Khusus Ibukota Jakarta 10730]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="117" y="58" width="360" height="20" uuid="ddb66b02-12d3-4afe-8d5f-e97439c6637c"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<text><![CDATA[Email : sukses@suksesabadikorporindo.com | Telephone : 02154396281]]></text>
+			</staticText>
 		</band>
 	</title>
 	<pageHeader>
@@ -77,7 +84,7 @@
 				<textElement textAlignment="Center">
 					<font fontName="Times New Roman" size="14" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Laporan Data Teknisi]]></text>
+				<text><![CDATA[Laporan Hasil Perangkingan]]></text>
 			</staticText>
 			<staticText>
 				<reportElement mode="Opaque" x="150" y="63" width="160" height="30" backcolor="#CCCCCC" uuid="5e6a2dd1-24d4-4099-bfba-6a73c8f99573"/>
@@ -206,14 +213,14 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="12"/>
 				</textElement>
-				<text><![CDATA[Kepala Toko]]></text>
+				<text><![CDATA[Manager IT]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="418" y="98" width="122" height="20" uuid="d8ea7fbf-3f4d-4f8a-897f-e89201365683"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="12"/>
 				</textElement>
-				<text><![CDATA[Ahmad Rivai]]></text>
+				<text><![CDATA[Reza Aditia Putra]]></text>
 			</staticText>
 		</band>
 	</columnFooter>

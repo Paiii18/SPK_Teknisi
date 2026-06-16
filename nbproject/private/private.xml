@@ -5,6 +5,7 @@
         <group>
             <file>file:/home/ryumaaa/NetBeansProjects/AHP_Teknisi/src/report/report_perangkingan.jrxml</file>
             <file>file:/home/ryumaaa/NetBeansProjects/AHP_Teknisi/src/view/HasilPerangkingan.java</file>
+            <file>file:/home/ryumaaa/NetBeansProjects/AHP_Teknisi/src/report/report_kriteria.jrxml</file>
             <file>file:/home/ryumaaa/NetBeansProjects/AHP_Teknisi/src/view/PerbandinganKriteria.java</file>
             <file>file:/home/ryumaaa/NetBeansProjects/AHP_Teknisi/src/dao/TeknisiDAO.java</file>
             <file>file:/home/ryumaaa/NetBeansProjects/AHP_Teknisi/src/dao/KriteriaDAO.java</file>
